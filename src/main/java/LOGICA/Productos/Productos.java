@@ -1,4 +1,4 @@
-package Productos;
+package LOGICA.Productos;
 
 /**
  * Clase abstracta que representa un producto.

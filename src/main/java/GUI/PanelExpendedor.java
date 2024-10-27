@@ -1,16 +1,12 @@
 package GUI;
 
+import LOGICA.*;
+import LOGICA.Productos.*;
+import LOGICA.Monedas.*;
+import LOGICA.Depositos.*;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
-public class PanelExpendedor extends JPanel {
-    public PanelExpendedor() {
-        this.setBackground(Color.ORANGE);
-    }
-
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.drawString("Panel del Expendedor", 50, 50);  // Texto de prueba
-    }
+public class PanelExpendedor extends JPanel{
 }

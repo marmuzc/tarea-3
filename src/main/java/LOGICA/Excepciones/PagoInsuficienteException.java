@@ -1,4 +1,4 @@
-package Excepciones;
+package LOGICA.Excepciones;
 
 public class PagoInsuficienteException extends Exception{
     

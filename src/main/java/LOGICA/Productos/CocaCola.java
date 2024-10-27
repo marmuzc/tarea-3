@@ -1,4 +1,4 @@
-package Productos;
+package LOGICA.Productos;
 public class CocaCola extends Bebida {
     public CocaCola(int serie) {
         super(serie);

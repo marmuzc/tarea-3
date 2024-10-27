@@ -1,4 +1,4 @@
-package Monedas;
+package LOGICA.Monedas;
 
 public class Moneda500 extends Moneda {
     private static final int valor = 500;

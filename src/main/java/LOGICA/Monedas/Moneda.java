@@ -1,4 +1,4 @@
-package Monedas;
+package LOGICA.Monedas;
 /**
  * Clase abstracta que representa una moneda.
  */

@@ -1,4 +1,4 @@
-package Depositos;
+package LOGICA.Depositos;
 import java.util.ArrayList;
 
 /**

@@ -1,5 +1,5 @@
-package Depositos;
-import Productos.*;
+package LOGICA.Depositos;
+import LOGICA.Productos.*;
 
 /**
  * Clase que representa un depósito especializado en productos.

@@ -1,5 +1,5 @@
-package Depositos;
-import Monedas.*;
+package LOGICA.Depositos;
+import LOGICA.Monedas.*;
 
 /**
  * Clase que representa un depósito especializado en monedas.
