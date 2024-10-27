@@ -1,3 +1,5 @@
+package LOGICA;
+
 /**
  * Enumeración que representa los diferentes productos disponibles.
  */

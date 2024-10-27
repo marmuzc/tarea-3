@@ -1,6 +1,9 @@
-import Excepciones.*;
-import Monedas.*;
-import Productos.*;
+package LOGICA;
+import LOGICA.Depositos.*;
+import LOGICA.Productos.*;
+import LOGICA.Monedas.*;
+import LOGICA.Excepciones.*;
+
 
 /**
  * Clase que representa a un comprador que realiza una compra en un expendedor.

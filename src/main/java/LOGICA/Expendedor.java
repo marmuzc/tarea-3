@@ -1,8 +1,8 @@
-import Depositos.*;
-import Excepciones.*;
-import Monedas.*;
-import Productos.*;
-
+package LOGICA;
+import LOGICA.Depositos.*;
+import LOGICA.Productos.*;
+import LOGICA.Monedas.*;
+import LOGICA.Excepciones.*;
 
 /**
  * Clase que representa el expendedor de productos.
