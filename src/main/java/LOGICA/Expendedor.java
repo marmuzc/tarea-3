@@ -1,4 +1,5 @@
 package LOGICA;
+
 import LOGICA.Depositos.*;
 import LOGICA.Productos.*;
 import LOGICA.Monedas.*;
@@ -10,10 +11,12 @@ import LOGICA.Excepciones.*;
 class Expendedor {
     private int precio;  // Precio de los productos
     private DepositoM monVu;  // Depósito de monedas para el vuelto
+    private DepositoM depositoMonedas;  // Depósito para las monedas de compras exitosas
     private DepositoP coca;  // Depósito de CocaColas
     private DepositoP sprite;  // Depósito de Sprites
     private DepositoP snickers;  // Depósito de Snickers
     private DepositoP super8;  // Depósito de Super8
+    private DepositoP depositoProducto;  // Depósito especial para un solo producto
     private int pagoUsuario;  // Pago ingresado por el usuario
     private Productos producto;  // Producto comprado
 
@@ -22,7 +25,6 @@ class Expendedor {
      * Inicializa los depósitos de productos con una cantidad específica.
      *
      * @param numProductos Número de productos de cada tipo a cargar en el expendedor.
-     * @param precioProductos Precio unitario de los productos.
      */
     public Expendedor(int numProductos) {
         this.precio = 0;
@@ -30,14 +32,16 @@ class Expendedor {
         this.sprite = new DepositoP();
         this.snickers = new DepositoP();
         this.super8 = new DepositoP();
+        this.depositoProducto = new DepositoP(1); // Depósito de un solo producto
         this.monVu = new DepositoM();
+        this.depositoMonedas = new DepositoM();  // Depósito para monedas de compras exitosas
 
         // Carga de productos en los depósitos
         for (int i = 0; i < numProductos; i++) {
-            coca.addProducto(new CocaCola(100+i));  // Agrega CocaCola con un código único
-            sprite.addProducto(new Sprite(200+i));  // Agrega Sprite con un código único
-            snickers.addProducto(new Snickers(300+i));  // Agrega Snickers con un código único
-            super8.addProducto(new Super8(400+i));  // Agrega Super8 con un código único
+            coca.addProducto(new CocaCola(100 + i));  // Agrega CocaCola con un código único
+            sprite.addProducto(new Sprite(200 + i));  // Agrega Sprite con un código único
+            snickers.addProducto(new Snickers(300 + i));  // Agrega Snickers con un código único
+            super8.addProducto(new Super8(400 + i));  // Agrega Super8 con un código único
         }
     }
 
@@ -47,13 +51,11 @@ class Expendedor {
      *
      * @param m Moneda utilizada para realizar la compra.
      * @param cual Enum que indica el tipo de producto que se desea comprar.
-     * @return El producto comprado, o null si no se pudo realizar la compra.
      * @throws NoHayProductoException Si no hay existencias del producto seleccionado.
      * @throws PagoInsuficienteException Si el pago es menor al precio del producto.
      * @throws PagoIncorrectoException Si no se ingresó una moneda válida.
      */
-    public Productos comprarProducto(Moneda m, productosEnum cual) throws NoHayProductoException, PagoInsuficienteException, PagoIncorrectoException {
-
+    public void comprarProducto(Moneda m, productosEnum cual) throws NoHayProductoException, PagoInsuficienteException, PagoIncorrectoException {
         if (m == null) { // Si no hay moneda, no se puede realizar la compra
             throw new PagoIncorrectoException("Error al comprar, no se ingresó moneda");
         }
@@ -81,7 +83,7 @@ class Expendedor {
                 precio = productosEnum.SUPER8.getPrecio();
                 break;
             default:
-                return null;  // Producto no encontrado
+                return;  // Producto no encontrado
         }
 
         // Verifica si el pago es insuficiente
@@ -90,15 +92,17 @@ class Expendedor {
             throw new PagoInsuficienteException("Error al comprar, pago insuficiente");
         }
 
-        // Si se ha seleccionado y hay disponibilidad del producto
+        // Si la compra es exitosa
         if (productoComprado != null) {
+            // Añadir moneda ingresada al depósito de compras exitosas
+            depositoMonedas.addMoneda(m);
+
             pagoUsuario -= this.precio;  // Resta el precio del producto al pago
             devolverVuelto(pagoUsuario);  // Devuelve el vuelto si corresponde
-            this.producto = productoComprado;  // Guarda el producto comprado
-            return producto;  // Retorna el producto comprado
-        } else {  // Si no hay producto disponible
+            this.depositoProducto.addProducto(productoComprado);  // Guarda el producto comprado en el depósito especial
+        } else {
             devolverVuelto(pagoUsuario);  // Devuelve el vuelto si no hay producto
-            throw new NoHayProductoException("Error al comprar, no hay producto");  // Lanza una excepción si no hay producto disponible
+            throw new NoHayProductoException("Error al comprar, no hay producto disponible");
         }
     }
 
@@ -117,9 +121,18 @@ class Expendedor {
 
     /**
      * Método para obtener el producto comprado.
-     * Retorna una moneda desde el depósito de vuelto.
+     * Simula la acción de sacar el producto del depósito especial.
      *
-     * @return Moneda del vuelto, o null si no hay vuelto disponible.
+     * @return El producto en el depósito especial, o null si no hay producto.
+     */
+    public Productos getProducto() {
+        return this.depositoProducto.getProducto();
+    }
+
+    /**
+     * Método para obtener una moneda del depósito de vuelto.
+     *
+     * @return Una moneda del vuelto, o null si no hay vuelto disponible.
      */
     public Moneda getVuelto() {
         return monVu.getMoneda();
