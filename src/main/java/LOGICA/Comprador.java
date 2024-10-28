@@ -4,7 +4,6 @@ import LOGICA.Productos.*;
 import LOGICA.Monedas.*;
 import LOGICA.Excepciones.*;
 
-
 /**
  * Clase que representa a un comprador que realiza una compra en un expendedor.
  */
@@ -24,26 +23,28 @@ class Comprador {
      * @throws PagoIncorrectoException Si no se ingresó una moneda válida.
      */
     public Comprador(Moneda m, productosEnum cualProducto, Expendedor exp) throws NoHayProductoException, PagoInsuficienteException, PagoIncorrectoException {
-        Productos producto = exp.comprarProducto(m, cualProducto);  // Realiza la compra en el expendedor
+        // Realiza la compra en el expendedor (ya no retorna un producto)
+        exp.comprarProducto(m, cualProducto);
+
+        // Inicializa el valor del vuelto a 0
         vuelto = 0;
+
+        // "Saca" el producto comprado del depósito especial del expendedor
+        Productos producto = exp.getProducto();
+
         if (producto != null) {
-            saborProducto = cualProducto.getNombre();  // Asigna el nombre del producto comprado
-            m = exp.getVuelto();  // Obtiene el vuelto
-            while (m != null) {
-                vuelto = vuelto + m.getValor();  // Suma el valor de la moneda al vuelto total
-                m = exp.getVuelto();  // Sigue obteniendo el vuelto mientras haya monedas
-            }
+            // Asigna el nombre del producto comprado
+            saborProducto = cualProducto.getNombre();
         } else {
-            if (m == null) {  // Si no hay monedas en el depósito de vuelto
-                vuelto = 0;  // El vuelto es 0
-                saborProducto = null;  // No hay producto
-            } else {
-                m = exp.getVuelto();  // En el caso de que el producto sea null, obtiene el vuelto
-                while (m != null) {  // Mientras haya monedas en el depósito
-                    vuelto = vuelto + m.getValor();  // Suma el valor de las monedas al vuelto total
-                    m = exp.getVuelto(); // Sigue obteniendo el vuelto mientras haya monedas
-                }
-            }
+            saborProducto = null;  // No hay producto disponible
+        }
+
+        // Obtiene el vuelto
+        m = exp.getVuelto();
+        while (m != null) {
+            // Suma el valor de la moneda al vuelto total
+            vuelto = vuelto + m.getValor();
+            m = exp.getVuelto();  // Sigue obteniendo el vuelto mientras haya monedas
         }
     }
 
