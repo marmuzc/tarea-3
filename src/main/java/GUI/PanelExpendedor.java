@@ -9,8 +9,14 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class PanelExpendedor extends JPanel{
+    private Image imagenCoca;
+
     public PanelExpendedor() {
         this.setBackground(Color.white);
+
+        ImageIcon icono = new ImageIcon("/resources/coca.jpeg");
+        imagenCoca = icono.getImage();
+
     }
 
     @Override
@@ -27,6 +33,9 @@ public class PanelExpendedor extends JPanel{
         g.setColor(Color.RED); // Establece el color negro
         g.fillRect(60, 550, 400, 100); // Dibuja un rectángulo en (30,30) de 80x40 px
 
+        if (imagenCoca != null) {
+            g.drawImage(imagenCoca, 30, 100, this);
+        }
 
     }
 }
