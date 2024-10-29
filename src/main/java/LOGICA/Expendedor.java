@@ -32,7 +32,7 @@ class Expendedor {
         this.sprite = new DepositoP();
         this.snickers = new DepositoP();
         this.super8 = new DepositoP();
-        this.depositoProducto = new DepositoP(1); // Depósito de un solo producto
+        this.depositoProducto = new DepositoP(); // Depósito de un solo producto
         this.monVu = new DepositoM();
         this.depositoMonedas = new DepositoM();  // Depósito para monedas de compras exitosas
 
