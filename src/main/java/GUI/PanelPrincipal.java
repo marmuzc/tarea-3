@@ -24,6 +24,7 @@ public class PanelPrincipal extends JPanel { // se ve en el centro de la ventana
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        com.paintComponent(g);
+        //com.paintComponent(g);
+        exp.paintComponent(g);
     }
 }

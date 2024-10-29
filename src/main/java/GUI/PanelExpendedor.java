@@ -10,12 +10,19 @@ import java.awt.event.*;
 
 public class PanelExpendedor extends JPanel{
     private Image imagenCoca;
+    private Image imagenSprite;
+    private Image imagenSnickers;
+
 
     public PanelExpendedor() {
         this.setBackground(Color.white);
 
-        ImageIcon icono = new ImageIcon("/resources/coca.jpeg");
-        imagenCoca = icono.getImage();
+        imagenCoca = new ImageIcon("src/resources/Cocacola.png").getImage();
+        imagenSprite = new ImageIcon("src/resources/Sprite.png").getImage();
+        imagenSnickers = new ImageIcon("src/resources/Snickers.png").getImage();
+
+
+
 
     }
 
@@ -34,7 +41,13 @@ public class PanelExpendedor extends JPanel{
         g.fillRect(60, 550, 400, 100); // Dibuja un rectángulo en (30,30) de 80x40 px
 
         if (imagenCoca != null) {
-            g.drawImage(imagenCoca, 30, 100, this);
+            g.drawImage(imagenCoca, 60, 260, 200,200,this);
+        }
+        if (imagenSprite != null) {
+            g.drawImage(imagenSprite, 260, 260, 200,200,this);
+        }
+        if (imagenSnickers != null) {
+            g.drawImage(imagenSnickers, 60, 60, 200,200,this);
         }
 
     }
