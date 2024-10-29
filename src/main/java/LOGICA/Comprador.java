@@ -30,7 +30,7 @@ class Comprador {
         vuelto = 0;
 
         // "Saca" el producto comprado del depósito especial del expendedor
-        Productos producto = exp.getProducto();
+        Productos producto = exp.getProductoComprado();
 
         if (producto != null) {
             // Asigna el nombre del producto comprado

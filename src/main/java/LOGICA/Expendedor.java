@@ -16,7 +16,7 @@ class Expendedor {
     private DepositoP sprite;  // Depósito de Sprites
     private DepositoP snickers;  // Depósito de Snickers
     private DepositoP super8;  // Depósito de Super8
-    private DepositoP depositoProducto;  // Depósito especial para un solo producto
+    private DepositoP depositoProductoComprado;  // Depósito especial para un solo producto
     private int pagoUsuario;  // Pago ingresado por el usuario
     private Productos producto;  // Producto comprado
 
@@ -32,7 +32,7 @@ class Expendedor {
         this.sprite = new DepositoP();
         this.snickers = new DepositoP();
         this.super8 = new DepositoP();
-        this.depositoProducto = new DepositoP(); // Depósito de un solo producto
+        this.depositoProductoComprado = new DepositoP(); // Depósito de un solo producto
         this.monVu = new DepositoM();
         this.depositoMonedas = new DepositoM();  // Depósito para monedas de compras exitosas
 
@@ -99,7 +99,7 @@ class Expendedor {
 
             pagoUsuario -= this.precio;  // Resta el precio del producto al pago
             devolverVuelto(pagoUsuario);  // Devuelve el vuelto si corresponde
-            this.depositoProducto.addProducto(productoComprado);  // Guarda el producto comprado en el depósito especial
+            this.depositoProductoComprado.addProducto(productoComprado);  // Guarda el producto comprado en el depósito especial
         } else {
             devolverVuelto(pagoUsuario);  // Devuelve el vuelto si no hay producto
             throw new NoHayProductoException("Error al comprar, no hay producto disponible");
@@ -125,8 +125,8 @@ class Expendedor {
      *
      * @return El producto en el depósito especial, o null si no hay producto.
      */
-    public Productos getProducto() {
-        return this.depositoProducto.getProducto();
+    public Productos getProductoComprado() {
+        return this.depositoProductoComprado.getProducto();
     }
 
     /**
