@@ -4,32 +4,68 @@ import javax.swing.*;
 import java.awt.*;
 
 public class PanelComprador extends JPanel {
-    private Image imagenComprador; // Imagen del comprador
-    private PanelAgregarDinero panelAgregarDinero; // Panel para agregar dinero
+    private Image imagenComprador;
+    private PanelAgregarDinero panelAgregarDinero;
+    private PanelBilletera panelBilletera;
+    private PanelInventario panelInventario;
 
     public PanelComprador() {
-        // Inicializa el panel para agregar dinero
+        // Configura el diseño principal como BorderLayout
+        this.setLayout(new BorderLayout());
+        this.setBackground(Color.LIGHT_GRAY); // Fondo para el PanelComprador
+
+        // Carga la imagen del comprador
+        imagenComprador = new ImageIcon("src/resources/Kanye.jpeg").getImage();
+
+        // Crea y configura el panel para agregar dinero en el borde izquierdo
         panelAgregarDinero = new PanelAgregarDinero();
+        panelAgregarDinero.setLayout(new GridLayout(3, 1));
+        panelAgregarDinero.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        panelAgregarDinero.setBackground(Color.LIGHT_GRAY); // Fondo del panel de agregar dinero
 
-        // Configura el diseño principal del panel
-        this.setLayout(new FlowLayout(FlowLayout.LEFT));
-        this.setBackground(Color.CYAN);
+        // Añade el panel para agregar dinero al borde izquierdo
+        this.add(panelAgregarDinero, BorderLayout.WEST);
 
-        // Carga la imagen desde la carpeta resources
-        imagenComprador = new ImageIcon("src/resources/08cafa728b59443a9dc5a4c20590d127.jpeg").getImage();
+        // Crea y configura el panel de billetera y el panel de inventario
+        JPanel panelLateral = new JPanel(); // Nuevo panel contenedor
+        panelLateral.setLayout(new FlowLayout()); // Establecer el diseño como FlowLayout
+        panelLateral.setBackground(Color.LIGHT_GRAY); // Fondo del panel lateral
 
-        // Agrega el panel de agregar dinero
-        this.add(panelAgregarDinero);
+        // Inicializa y configura el panel de la billetera
+        panelBilletera = new PanelBilletera();
+        panelBilletera.setLayout(new FlowLayout());
+        //panelBilletera.setBorder(BorderFactory.createEmptyBorder(10, 500, 10, 10));
+        panelBilletera.setBackground(Color.LIGHT_GRAY); // Fondo del panel de la billetera
+
+        // Inicializa y configura el panel de inventario
+        panelInventario = new PanelInventario();
+        panelInventario.setLayout(new FlowLayout());
+        //panelInventario.setBorder(BorderFactory.createEmptyBorder(10, 500, 10, 10));
+        panelInventario.setBackground(Color.LIGHT_GRAY); // Fondo del panel de la mochila
+
+        // Añade ambos paneles al panel lateral
+        panelLateral.add(panelBilletera);
+        panelLateral.add(panelInventario);
+
+        // Añade el panel lateral al borde inferior
+        this.add(panelLateral, BorderLayout.SOUTH); // Añade el panel lateral al borde inferior
+
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+
         if (imagenComprador != null) {
-            g.drawImage(imagenComprador, 10, 10, this); // Dibuja la imagen en la posición deseada
+            int imageWidth = 500;
+            int imageHeight = 500;
+            int imageX = 120; // Margen izquierdo
+            int imageY = 10; // Centra verticalmente la imagen
+
+            // Dibuja la imagen en la posición y tamaño especificados
+            g.drawImage(imagenComprador, imageX, imageY, imageWidth, imageHeight, this);
         } else {
-            g.drawString("Imagen no encontrada", 50, 20); // Mensaje si la imagen no se carga
+            g.drawString("Imagen no encontrada", 10, 20);
         }
-        g.drawString("Panel del Comprador", 50, 60); // Título del panel
     }
 }

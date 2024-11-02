@@ -3,7 +3,7 @@ package GUI;
 import javax.swing.*;
 import java.awt.*;
 
-public class PanelPrincipal extends JPanel { // se ve en el centro de la ventana
+public class PanelPrincipal extends JPanel {
     private PanelComprador com;
     private PanelExpendedor exp;
 
@@ -12,19 +12,19 @@ public class PanelPrincipal extends JPanel { // se ve en el centro de la ventana
         exp = new PanelExpendedor();
         com = new PanelComprador();
 
-        // Configura el diseño y agrega los paneles
-        this.setLayout(new BorderLayout());
+        // Cambia el diseño a GridLayout con 1 fila y 2 columnas
+        this.setLayout(new GridLayout(1, 2));
         this.setBackground(Color.white);
 
-        // Puedes ajustar el BorderLayout para situar los paneles como prefieras
-        this.add(exp, BorderLayout.WEST);  // PanelExpendedor en el centro
-        this.add(com, BorderLayout.EAST);   // PanelComprador en la parte inferior
+        // Agrega los paneles
+        this.add(exp); // Panel de expendedor a la izquierda
+        this.add(com); // Panel de comprador a la derecha
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        //com.paintComponent(g);
-        exp.paintComponent(g);
+        // No es necesario llamar a exp.paintComponent(g) ni com.paintComponent(g) aquí,
+        // ya que el método paintComponent se llama automáticamente para cada panel agregado
     }
 }

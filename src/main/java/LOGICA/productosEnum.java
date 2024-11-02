@@ -4,7 +4,7 @@ package LOGICA;
  * Enumeración que representa los diferentes productos disponibles.
  */
 public enum productosEnum {
-    COCA(1, 1000),
+    COCA(1, 1200),
     SPRITE(2, 900),
     SUPER8(3, 400),
     SNICKERS(4, 500);
