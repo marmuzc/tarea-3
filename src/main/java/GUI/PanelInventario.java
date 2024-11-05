@@ -5,13 +5,19 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import LOGICA.Depositos.*;
+import LOGICA.Productos.*;
+
+
 public class PanelInventario extends JPanel {
     private Image inventario; // Para almacenar la imagen de la mochila
     private JLabel etiqueta; // Para la etiqueta que indica "Inventario"
+    private DepositoP productos;
 
     public PanelInventario() {
         // Cargar la imagen de la mochila
         inventario = new ImageIcon("src/resources/Inventario.png").getImage();
+        this.productos = new DepositoP();
 
         // Establecer el tamaño preferido del panel (ajusta según tu imagen)
         setPreferredSize(new Dimension(150, 150)); // Cambia el tamaño según tu imagen deseada
@@ -44,6 +50,9 @@ public class PanelInventario extends JPanel {
         g.drawImage(inventario, 0, 30, getWidth(), getHeight() - 30, this); // Dibuja la imagen debajo de la etiqueta
     }
 
+    public void agregarProducto(Productos producto){
+        productos.addProducto(producto);
+    }
     // Método para mostrar la ventana con los productos
     private void mostrarProductos() {
         JFrame productosFrame = new JFrame("Productos en el Inventario");
@@ -52,13 +61,9 @@ public class PanelInventario extends JPanel {
         productosFrame.setLayout(new FlowLayout());
 
         // Aquí agregarás los productos, por ahora solo un ejemplo
-        JLabel producto1 = new JLabel("Producto 1");
-        JLabel producto2 = new JLabel("Producto 2");
-        JLabel producto3 = new JLabel("Producto 3");
-
-        productosFrame.add(producto1);
-        productosFrame.add(producto2);
-        productosFrame.add(producto3);
+        for (Productos producto : productos.getDeposito()) {
+            productosFrame.add(new JLabel(producto.getNombre()));
+        }
 
         productosFrame.setVisible(true); // Mostrar la ventana
     }

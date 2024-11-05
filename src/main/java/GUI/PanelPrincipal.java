@@ -9,8 +9,9 @@ public class PanelPrincipal extends JPanel {
 
     public PanelPrincipal() {
         // Inicializa los paneles
-        exp = new PanelExpendedor();
         com = new PanelComprador();
+        exp = new PanelExpendedor(com);
+
 
         // Cambia el diseño a GridLayout con 1 fila y 2 columnas
         this.setLayout(new GridLayout(1, 2));

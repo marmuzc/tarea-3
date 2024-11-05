@@ -16,7 +16,7 @@ public class PanelExpendedor extends JPanel {
     private final String precioSnickers = "(1) - $500";
     private final String precioSuper8 = "(2) - $400";
 
-    public PanelExpendedor() {
+    public PanelExpendedor(PanelComprador panelComprador) {
         this.setBackground(Color.white);
         this.setLayout(new BorderLayout());
 
@@ -25,7 +25,7 @@ public class PanelExpendedor extends JPanel {
         imagenSnickers = new ImageIcon("src/resources/Snickers.png").getImage();
         imagenSuper8 = new ImageIcon("src/resources/Super8.png").getImage();
 
-        panelBotones = new PanelBotonesExp();
+        panelBotones = new PanelBotonesExp(panelComprador);
         panelBotones.setLayout(new GridLayout(2, 2));
         panelBotones.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         panelBotones.setPreferredSize(new Dimension(150, 150));

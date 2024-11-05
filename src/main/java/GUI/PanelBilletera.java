@@ -5,13 +5,18 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import LOGICA.Depositos.*;
+import LOGICA.Monedas.*;
+
 public class PanelBilletera extends JPanel {
     private Image billetera; // Para almacenar la imagen de la billetera
     private JLabel etiqueta; // Para la etiqueta que indica "Billetera"
+    private DepositoM monedas;
 
     public PanelBilletera() {
         // Cargar la imagen de la billetera
         billetera = new ImageIcon("src/resources/Billetera.png").getImage();
+        this.monedas = new DepositoM();
 
         // Establecer el tamaño preferido del panel
         setPreferredSize(new Dimension(150, 150)); // Cambia el tamaño según tu imagen deseada
@@ -43,6 +48,10 @@ public class PanelBilletera extends JPanel {
         // Ajustar la imagen al tamaño del panel, menos el espacio de la etiqueta
         g.drawImage(billetera, 0, 30, getWidth(), getHeight() - 30, this); // Dibuja la imagen debajo de la etiqueta
     }
+    
+    public void agregarMoneda(Moneda moneda){
+        monedas.addMoneda(moneda);
+    }
 
     // Método para mostrar la ventana con las monedas
     private void mostrarMonedas() {
@@ -52,16 +61,22 @@ public class PanelBilletera extends JPanel {
         monedasFrame.setLayout(new FlowLayout());
 
         // Crear las representaciones visuales de las monedas como círculos
-        monedasFrame.add(crearMonedaCirculo("$1000", new Color(205, 127, 50))); // Bronce
-        monedasFrame.add(crearMonedaCirculo("$1000", new Color(205, 127, 50)));
-        monedasFrame.add(crearMonedaCirculo("$1000", new Color(205, 127, 50)));
-        monedasFrame.add(crearMonedaCirculo("$1000", new Color(205, 127, 50)));
-        monedasFrame.add(crearMonedaCirculo("$500", new Color(169, 169, 169))); // Plateado
-        monedasFrame.add(crearMonedaCirculo("$100", new Color(212, 175, 55))); // Dorado
-        monedasFrame.add(crearMonedaCirculo("$100", new Color(212, 175, 55))); // Dorado
-        monedasFrame.add(crearMonedaCirculo("$100", new Color(212, 175, 55))); // Dorado
-        monedasFrame.add(crearMonedaCirculo("$100", new Color(212, 175, 55))); // Dorado
-        monedasFrame.add(crearMonedaCirculo("$100", new Color(212, 175, 55))); // Dorado
+        for (Moneda moneda : monedas.getDeposito()) {
+            switch (moneda.getValor()) {
+                case 1000:
+                    monedasFrame.add(crearMonedaCirculo("$1000", new Color(212, 175, 55))); // Dorado
+                    break;
+            
+                case 500:
+                    monedasFrame.add(crearMonedaCirculo("$500", new Color(169, 169, 169))); // Plateado
+                    break;
+
+                case 100:
+                    monedasFrame.add(crearMonedaCirculo("$100", new Color(205, 127, 50))); // Bronce
+                    break;
+            }
+            
+        }
 
         monedasFrame.setVisible(true); // Mostrar la ventana
     }

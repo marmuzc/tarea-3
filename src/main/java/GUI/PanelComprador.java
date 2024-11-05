@@ -52,6 +52,10 @@ public class PanelComprador extends JPanel {
 
     }
 
+    public PanelInventario getPanelInventario() {
+        return panelInventario;
+    }
+    
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

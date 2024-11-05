@@ -1,11 +1,11 @@
 package GUI;
 
 import LOGICA.Expendedor;
-import LOGICA.Monedas.Moneda;
-import LOGICA.Monedas.Moneda100;
+import LOGICA.Monedas.*;
 import LOGICA.productosEnum;
 import LOGICA.Depositos.DepositoM;
 import LOGICA.Excepciones.*;
+import LOGICA.Productos.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,8 +17,13 @@ public class PanelBotonesExp extends JPanel {
     private DepositoM depositoSaldo;
     private double saldoDisponible = 4500; // Monto inicial del saldo
     private Expendedor expendedor; //test
+    private Productos productoComprado;
+    private PanelComprador panelComprador; // Referencia a PanelComprador
+    
 
-    public PanelBotonesExp() {
+    public PanelBotonesExp(PanelComprador panelComprador) {
+        this.panelComprador = panelComprador;
+
         setLayout(new BorderLayout());
 
         expendedor = new Expendedor(5);
@@ -67,13 +72,15 @@ public class PanelBotonesExp extends JPanel {
 
     private void comprarProducto(productosEnum productoEnum) {
         try {
-            Moneda100 moneda = new Moneda100(); // Simulación de una moneda de pago de 100
+            Moneda moneda = new Moneda1000(); // Simulación de una moneda de pago de 100
             expendedor.comprarProducto(moneda, productoEnum);
+            productoComprado = expendedor.getProductoComprado();
             
             saldoDisponible -= productoEnum.getPrecio(); // Descontar el saldo
             actualizarSaldo();
 
-            JOptionPane.showMessageDialog(this, "Has comprado " + productoEnum);
+
+            JOptionPane.showMessageDialog(this, "Puede retirar su " + productoEnum);
         } catch (PagoInsuficienteException | NoHayProductoException | PagoIncorrectoException e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -91,8 +98,11 @@ public class PanelBotonesExp extends JPanel {
     }
 
     private void retirarProducto() {
-        if (expendedor.getProductoComprado() != null) {
-            JOptionPane.showMessageDialog(this, "Producto retirado: " + expendedor.getProductoComprado().getNombre());
+        if (productoComprado != null) {
+            JOptionPane.showMessageDialog(this, "Producto retirado: " + productoComprado.getNombre());
+            panelComprador.getPanelInventario().agregarProducto(productoComprado); // Añade al inventario
+            JOptionPane.showMessageDialog(null, productoComprado.getNombre() + " añadido al inventario.");
+
         } else {
             JOptionPane.showMessageDialog(this, "No hay producto disponible para retirar");
         }
