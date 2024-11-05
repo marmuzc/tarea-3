@@ -46,20 +46,46 @@ public class PanelBilletera extends JPanel {
 
     // Método para mostrar la ventana con las monedas
     private void mostrarMonedas() {
-        JFrame monedasFrame = new JFrame("Monedas");
+        JFrame monedasFrame = new JFrame("Monedas en la Billetera");
         monedasFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        monedasFrame.setSize(200, 100); // Ajusta el tamaño de la ventana
+        monedasFrame.setSize(250, 200); // Ajusta el tamaño de la ventana
         monedasFrame.setLayout(new FlowLayout());
 
-        // Aquí agregarás las monedas, por ahora solo un ejemplo
-        JLabel moneda1 = new JLabel("Moneda de $100");
-        JLabel moneda2 = new JLabel("Moneda de $500");
-        JLabel moneda3 = new JLabel("Moneda de $1000");
-
-        monedasFrame.add(moneda1);
-        monedasFrame.add(moneda2);
-        monedasFrame.add(moneda3);
+        // Crear las representaciones visuales de las monedas como círculos
+        monedasFrame.add(crearMonedaCirculo("$1000", new Color(205, 127, 50))); // Bronce
+        monedasFrame.add(crearMonedaCirculo("$1000", new Color(205, 127, 50)));
+        monedasFrame.add(crearMonedaCirculo("$1000", new Color(205, 127, 50)));
+        monedasFrame.add(crearMonedaCirculo("$1000", new Color(205, 127, 50)));
+        monedasFrame.add(crearMonedaCirculo("$500", new Color(169, 169, 169))); // Plateado
+        monedasFrame.add(crearMonedaCirculo("$100", new Color(212, 175, 55))); // Dorado
+        monedasFrame.add(crearMonedaCirculo("$100", new Color(212, 175, 55))); // Dorado
+        monedasFrame.add(crearMonedaCirculo("$100", new Color(212, 175, 55))); // Dorado
+        monedasFrame.add(crearMonedaCirculo("$100", new Color(212, 175, 55))); // Dorado
+        monedasFrame.add(crearMonedaCirculo("$100", new Color(212, 175, 55))); // Dorado
 
         monedasFrame.setVisible(true); // Mostrar la ventana
+    }
+
+    private JPanel crearMonedaCirculo(String texto, Color color) {
+        JPanel monedaPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.setColor(color);
+                g.fillOval(0, 0, getWidth(), getHeight()); // Dibujar un círculo del tamaño del panel
+                g.setColor(Color.WHITE);
+                g.setFont(new Font("Arial", Font.BOLD, 12));
+
+                // Centrar el texto dentro del círculo
+                FontMetrics metrics = g.getFontMetrics(g.getFont());
+                int x = (getWidth() - metrics.stringWidth(texto)) / 2;
+                int y = ((getHeight() - metrics.getHeight()) / 2) + metrics.getAscent();
+                g.drawString(texto, x, y);
+            }
+        };
+
+        monedaPanel.setPreferredSize(new Dimension(50, 50)); // Tamaño de cada "moneda"
+        monedaPanel.setOpaque(false); // Hacer que el fondo del panel sea transparente
+        return monedaPanel;
     }
 }

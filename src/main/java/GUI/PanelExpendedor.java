@@ -1,19 +1,14 @@
 package GUI;
 
-import LOGICA.*;
-import LOGICA.Productos.*;
-import LOGICA.Monedas.*;
-import LOGICA.Depositos.*;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
 public class PanelExpendedor extends JPanel {
     private Image imagenCoca;
     private Image imagenSprite;
     private Image imagenSnickers;
     private Image imagenSuper8;
-    private PanelBotones panelBotones;
+    private PanelBotonesExp panelBotones;
 
     // Variables para los precios de los productos
     private final String precioCoca = "(3) - $1200";
@@ -30,18 +25,16 @@ public class PanelExpendedor extends JPanel {
         imagenSnickers = new ImageIcon("src/resources/Snickers.png").getImage();
         imagenSuper8 = new ImageIcon("src/resources/Super8.png").getImage();
 
-        // Crear y ajustar PanelBotones
-        panelBotones = new PanelBotones();
+        panelBotones = new PanelBotonesExp();
         panelBotones.setLayout(new GridLayout(2, 2));
         panelBotones.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        panelBotones.setPreferredSize(new Dimension(150, 100));
+        panelBotones.setPreferredSize(new Dimension(150, 150));
 
-        // Crear un contenedor para el PanelBotones
         JPanel contenedorBotones = new JPanel();
         contenedorBotones.setLayout(new FlowLayout());
         contenedorBotones.add(panelBotones);
+        contenedorBotones.setPreferredSize(new Dimension(150, 150));
 
-        // Agregar el contenedor a la parte inferior de PanelExpendedor
         this.add(contenedorBotones, BorderLayout.EAST);
     }
 
