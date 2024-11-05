@@ -5,7 +5,6 @@ import java.awt.*;
 
 public class PanelComprador extends JPanel {
     private Image imagenComprador;
-    private PanelAgregarDinero panelAgregarDinero;
     private PanelBilletera panelBilletera;
     private PanelInventario panelInventario;
 
@@ -16,15 +15,6 @@ public class PanelComprador extends JPanel {
 
         // Carga la imagen del comprador
         imagenComprador = new ImageIcon("src/resources/Kanye.jpeg").getImage();
-
-        // Crea y configura el panel para agregar dinero en el borde izquierdo
-        panelAgregarDinero = new PanelAgregarDinero();
-        panelAgregarDinero.setLayout(new GridLayout(3, 1));
-        panelAgregarDinero.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        panelAgregarDinero.setBackground(Color.LIGHT_GRAY); // Fondo del panel de agregar dinero
-
-        // Añade el panel para agregar dinero al borde izquierdo
-        this.add(panelAgregarDinero, BorderLayout.WEST);
 
         // Crea y configura el panel de billetera y el panel de inventario
         JPanel panelLateral = new JPanel(); // Nuevo panel contenedor

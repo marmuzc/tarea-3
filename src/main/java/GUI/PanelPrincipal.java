@@ -12,19 +12,20 @@ public class PanelPrincipal extends JPanel {
         exp = new PanelExpendedor();
         com = new PanelComprador();
 
-        // Cambia el diseño a GridLayout con 1 fila y 2 columnas
-        this.setLayout(new GridLayout(1, 2));
+        // Cambia el diseño a BorderLayout
+        this.setLayout(new BorderLayout());
         this.setBackground(Color.white);
 
+        // Ajusta el tamaño preferido para que el panel del expendedor ocupe un 70% aprox.
+        exp.setPreferredSize(new Dimension(800, 600)); // Ajusta el ancho (700 es solo un ejemplo)
+
         // Agrega los paneles
-        this.add(exp); // Panel de expendedor a la izquierda
-        this.add(com); // Panel de comprador a la derecha
+        this.add(exp, BorderLayout.WEST); // Expendedor a la izquierda
+        this.add(com, BorderLayout.CENTER); // Comprador a la derecha
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        // No es necesario llamar a exp.paintComponent(g) ni com.paintComponent(g) aquí,
-        // ya que el método paintComponent se llama automáticamente para cada panel agregado
     }
 }

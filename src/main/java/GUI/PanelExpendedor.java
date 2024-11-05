@@ -2,6 +2,7 @@ package GUI;
 
 import javax.swing.*;
 import java.awt.*;
+import LOGICA.*;
 
 public class PanelExpendedor extends JPanel {
     private Image imagenCoca;
@@ -9,6 +10,7 @@ public class PanelExpendedor extends JPanel {
     private Image imagenSnickers;
     private Image imagenSuper8;
     private PanelBotonesExp panelBotones;
+    private Expendedor expendedor;
 
     // Variables para los precios de los productos
     private final String precioCoca = "(3) - $1200";
@@ -17,6 +19,7 @@ public class PanelExpendedor extends JPanel {
     private final String precioSuper8 = "(2) - $400";
 
     public PanelExpendedor() {
+        expendedor = new Expendedor(5); // Inicializa el expendedor con 5 productos de cada tipo
         this.setBackground(Color.white);
         this.setLayout(new BorderLayout());
 
@@ -25,15 +28,15 @@ public class PanelExpendedor extends JPanel {
         imagenSnickers = new ImageIcon("src/resources/Snickers.png").getImage();
         imagenSuper8 = new ImageIcon("src/resources/Super8.png").getImage();
 
-        panelBotones = new PanelBotonesExp();
-        panelBotones.setLayout(new GridLayout(2, 2));
+        panelBotones = new PanelBotonesExp(expendedor);
+       // panelBotones.setLayout(new GridLayout(2, 2));
         panelBotones.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        panelBotones.setPreferredSize(new Dimension(150, 150));
+        panelBotones.setPreferredSize(new Dimension(250, 400));
 
         JPanel contenedorBotones = new JPanel();
         contenedorBotones.setLayout(new FlowLayout());
         contenedorBotones.add(panelBotones);
-        contenedorBotones.setPreferredSize(new Dimension(150, 150));
+     //   contenedorBotones.setPreferredSize(new Dimension(300, 300));
 
         this.add(contenedorBotones, BorderLayout.EAST);
     }

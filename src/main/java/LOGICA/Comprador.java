@@ -7,7 +7,7 @@ import LOGICA.Excepciones.*;
 /**
  * Clase que representa a un comprador que realiza una compra en un expendedor.
  */
-class Comprador {
+public class Comprador {
     private String saborProducto;  // Almacena el sabor del producto comprado
     private int vuelto;  // Almacena el valor del vuelto entregado
 

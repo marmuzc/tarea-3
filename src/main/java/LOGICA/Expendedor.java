@@ -8,7 +8,7 @@ import LOGICA.Excepciones.*;
 /**
  * Clase que representa el expendedor de productos.
  */
-class Expendedor {
+public class Expendedor {
     private int precio;  // Precio de los productos
     private DepositoM monVu;  // Depósito de monedas para el vuelto
     private DepositoM depositoMonedas;  // Depósito para las monedas de compras exitosas
