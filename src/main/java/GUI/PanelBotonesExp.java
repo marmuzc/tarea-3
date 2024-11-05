@@ -1,5 +1,12 @@
 package GUI;
 
+import LOGICA.Expendedor;
+import LOGICA.Monedas.Moneda;
+import LOGICA.Monedas.Moneda100;
+import LOGICA.productosEnum;
+import LOGICA.Depositos.DepositoM;
+import LOGICA.Excepciones.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -7,11 +14,14 @@ import java.awt.event.ActionListener;
 
 public class PanelBotonesExp extends JPanel {
     private JLabel saldoLabel;
+    private DepositoM depositoSaldo;
     private double saldoDisponible = 4500; // Monto inicial del saldo
+    private Expendedor expendedor; //test
 
     public PanelBotonesExp() {
         setLayout(new BorderLayout());
 
+        expendedor = new Expendedor(5);
 
         JPanel panelElegirProductos = new JPanel();
         panelElegirProductos.setLayout(new GridLayout(2, 2));
@@ -21,10 +31,10 @@ public class PanelBotonesExp extends JPanel {
         JButton botonCoca = new JButton("3");
         JButton botonSprite = new JButton("4");
 
-        botonCoca.addActionListener(e -> comprarProducto("Coca-Cola"));
-        botonSprite.addActionListener(e -> comprarProducto("Sprite"));
-        botonSnickers.addActionListener(e -> comprarProducto("Snickers"));
-        botonSuper8.addActionListener(e -> comprarProducto("Super 8"));
+        botonCoca.addActionListener(e -> comprarProducto(productosEnum.COCA));
+        botonSprite.addActionListener(e -> comprarProducto(productosEnum.SPRITE));
+        botonSnickers.addActionListener(e -> comprarProducto(productosEnum.SNICKERS));
+        botonSuper8.addActionListener(e -> comprarProducto(productosEnum.SUPER8));
 
 
         panelElegirProductos.add(botonSnickers);
@@ -37,44 +47,10 @@ public class PanelBotonesExp extends JPanel {
         panelOtrosBotones.setLayout(new GridLayout(3, 1));
 
         JButton botonVuelto = new JButton("Retirar Vuelto");
-        botonVuelto.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Crear una ventana emergente para mostrar el vuelto
-                JFrame ventanaVuelto = new JFrame("Vuelto");
-                ventanaVuelto.setSize(300, 200);
-                ventanaVuelto.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-
-                JLabel vueltoLabel = new JLabel("Tu vuelto es: $" + saldoDisponible);
-                JButton botonRetirarVuelto = new JButton("Retirar Vuelto");
-                botonRetirarVuelto.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        JOptionPane.showMessageDialog(null, "Vuelto retirado!");
-                        saldoDisponible = 0.0;
-                        actualizarSaldo();
-                        ventanaVuelto.dispose();
-                    }
-                });
-
-
-                ventanaVuelto.setLayout(new FlowLayout());
-                ventanaVuelto.add(vueltoLabel);
-                ventanaVuelto.add(botonRetirarVuelto);
-                ventanaVuelto.setVisible(true);
-            }
-        });
-
+        botonVuelto.addActionListener(e -> retirarVuelto());
 
         JButton botonRetirarProducto = new JButton("Retirar Producto");
-        botonRetirarProducto.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Producto retirado!");
-            }
-        });
-
+        botonRetirarProducto.addActionListener(e -> retirarProducto());
 
         saldoLabel = new JLabel("Saldo: $" + saldoDisponible);
         saldoLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -89,8 +65,37 @@ public class PanelBotonesExp extends JPanel {
         add(panelOtrosBotones, BorderLayout.SOUTH);
     }
 
-    private void comprarProducto(String producto) {
-        // Aquí iría la lógica de compra de productos
+    private void comprarProducto(productosEnum productoEnum) {
+        try {
+            Moneda100 moneda = new Moneda100(); // Simulación de una moneda de pago de 100
+            expendedor.comprarProducto(moneda, productoEnum);
+            
+            saldoDisponible -= productoEnum.getPrecio(); // Descontar el saldo
+            actualizarSaldo();
+
+            JOptionPane.showMessageDialog(this, "Has comprado " + productoEnum);
+        } catch (PagoInsuficienteException | NoHayProductoException | PagoIncorrectoException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void retirarVuelto() {
+        Moneda vuelto = expendedor.getVuelto();
+        if (vuelto != null) {
+            saldoDisponible += vuelto.getValor();
+            actualizarSaldo();
+            JOptionPane.showMessageDialog(this, "Vuelto retirado: $" + vuelto.getValor());
+        } else {
+            JOptionPane.showMessageDialog(this, "No hay vuelto disponible");
+        }
+    }
+
+    private void retirarProducto() {
+        if (expendedor.getProductoComprado() != null) {
+            JOptionPane.showMessageDialog(this, "Producto retirado: " + expendedor.getProductoComprado().getNombre());
+        } else {
+            JOptionPane.showMessageDialog(this, "No hay producto disponible para retirar");
+        }
     }
 
     private void actualizarSaldo() {
