@@ -15,7 +15,7 @@ public class PanelComprador extends JPanel {
         this.setBackground(Color.LIGHT_GRAY); // Fondo para el PanelComprador
 
         // Carga la imagen del comprador
-        imagenComprador = new ImageIcon("src/resources/Kanye.jpeg").getImage();
+        imagenComprador = new ImageIcon("src/resources/Kanye.png").getImage();
 
         // Crea y configura el panel para agregar dinero en el borde izquierdo
         panelAgregarDinero = new PanelAgregarDinero();
@@ -55,7 +55,7 @@ public class PanelComprador extends JPanel {
     public PanelInventario getPanelInventario() {
         return panelInventario;
     }
-    
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
