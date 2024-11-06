@@ -11,16 +11,20 @@ public class PanelBotonesExp extends JPanel {
     private double saldoDisponible = 4500;
     private Expendedor expendedor;
     private Moneda moneda;
+    private PanelMonedas panelMonedas;
 
-    public PanelBotonesExp(Expendedor expendedor) {
+   public PanelBotonesExp(Expendedor expendedor) {
         this.expendedor = expendedor;
+
+        // Cambia el fondo del panel principal a gris oscuro
+        this.setBackground(Color.DARK_GRAY);
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        // Panel para elegir productos
         JPanel panelElegirProductos = new JPanel();
         panelElegirProductos.setLayout(new GridLayout(2, 2));
         panelElegirProductos.setPreferredSize(new Dimension(200, 100));
+        panelElegirProductos.setBackground(Color.DARK_GRAY); // Cambia el fondo de este panel
 
         JButton botonSnickers = new JButton("1");
         JButton botonSuper8 = new JButton("2");
@@ -37,25 +41,27 @@ public class PanelBotonesExp extends JPanel {
         panelElegirProductos.add(botonCoca);
         panelElegirProductos.add(botonSprite);
 
-        // Panel para otros botones (Retirar vuelto y producto)
-   //     JPanel panelOtrosBotones = new JPanel();
-  //      panelOtrosBotones.setLayout(new GridLayout(2, 1));
-    //    panelOtrosBotones.setPreferredSize(new Dimension(200, 100));
-
+        JPanel panelVuelto = new JPanel();
+        panelVuelto.setBackground(Color.DARK_GRAY); // Cambia el fondo de este panel
         JButton botonVuelto = new JButton("Retirar Vuelto");
         botonVuelto.addActionListener(e -> retirarVuelto());
+        panelVuelto.add(botonVuelto);
 
+        JPanel panelRetirarProducto = new JPanel();
+        panelRetirarProducto.setBackground(Color.DARK_GRAY); // Cambia el fondo de este panel
         JButton botonRetirarProducto = new JButton("Retirar Producto");
         botonRetirarProducto.addActionListener(e -> JOptionPane.showMessageDialog(null, "Producto en inventario!"));
+        panelRetirarProducto.add(botonRetirarProducto);
 
-      //  panelOtrosBotones.add(botonVuelto);
-        //panelOtrosBotones.add(botonRetirarProducto);
-
-        // Panel para agregar dinero
         JPanel panelAgregarDinero = new JPanel();
         panelAgregarDinero.setLayout(new GridLayout(3, 1));
-        panelAgregarDinero.setPreferredSize(new Dimension(200, 150));
+        panelAgregarDinero.setBackground(Color.DARK_GRAY); // Cambia el fondo de este panel
 
+        // Inicializa el panelMonedas
+        panelMonedas = new PanelMonedas();
+        panelMonedas.setBackground(Color.DARK_GRAY); // Cambia el fondo de panelMonedas
+
+        // Botones de agregar dinero
         JButton boton100 = new JButton("Agregar $100");
         JButton boton500 = new JButton("Agregar $500");
         JButton boton1000 = new JButton("Agregar $1000");
@@ -69,30 +75,51 @@ public class PanelBotonesExp extends JPanel {
         boton500.setForeground(Color.WHITE);
         boton1000.setForeground(Color.WHITE);
 
+        boton100.addActionListener(e -> {
+            agregarMoneda(100);
+            actualizarSaldo();
+        });
+
+        boton500.addActionListener(e -> {
+            agregarMoneda(500);
+            actualizarSaldo();
+        });
+
+        boton1000.addActionListener(e -> {
+            agregarMoneda(1000);
+            actualizarSaldo();
+        });
+
         panelAgregarDinero.add(boton100);
         panelAgregarDinero.add(boton500);
         panelAgregarDinero.add(boton1000);
 
-        // Saldo label
-        saldoLabel = new JLabel("Saldo: $" + saldoDisponible);
+        // Configuración del label de saldo
+        saldoLabel = new JLabel("Saldo disponible: $" + saldoDisponible);
+        saldoLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        saldoLabel.setAlignmentX(Component.CENTER_ALIGNMENT); // Centrar en el BoxLayout
+        saldoLabel.setForeground(Color.WHITE); // Cambia el color del texto a blanco
 
-        // Añadir los paneles en orden
-        add(panelElegirProductos);
-        add(Box.createRigidArea(new Dimension(0, 25))); // Espacio de 10px entre paneles
+        // Configuración del label de productos
+        JLabel labelProductos = new JLabel("Elegir producto:");
+        labelProductos.setHorizontalAlignment(SwingConstants.CENTER);
+        labelProductos.setAlignmentX(Component.CENTER_ALIGNMENT); // Centrar en el BoxLayout
+        labelProductos.setForeground(Color.WHITE); // Cambia el color del texto a blanco
 
-        add(panelAgregarDinero);
-        add(Box.createRigidArea(new Dimension(0, 25))); // Espacio de 10px entre paneles
+        // Añadir los paneles y componentes al panel principal en el orden deseado
+        add(panelAgregarDinero); // Añade los botones primero
+        add(Box.createRigidArea(new Dimension(0, 10)));
+        add(panelMonedas); // Luego el panel para mostrar las monedas
+        add(Box.createRigidArea(new Dimension(0, 15)));
         add(saldoLabel);
-        add(Box.createRigidArea(new Dimension(0, 25))); // Espacio de 10px entre paneles
-     //   add(panelOtrosBotones);
-        add(botonVuelto);
-        add(botonRetirarProducto);
+        add(Box.createRigidArea(new Dimension(0, 15)));
+        add(labelProductos);
+        add(Box.createRigidArea(new Dimension(0, 15)));
+        add(panelElegirProductos);
+        add(Box.createRigidArea(new Dimension(0, 25)));
+        add(panelVuelto);
+        add(panelRetirarProducto);
 
-        // Bordes para facilitar la visualización
-        panelElegirProductos.setBorder(BorderFactory.createLineBorder(Color.RED));
-       // panelOtrosBotones.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-        panelAgregarDinero.setBorder(BorderFactory.createLineBorder(Color.BLUE));
-        saldoLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }
 
     private void comprarProducto(productosEnum producto) {
@@ -131,4 +158,9 @@ public class PanelBotonesExp extends JPanel {
     private void actualizarSaldo() {
         saldoLabel.setText("Saldo: $" + saldoDisponible);
     }
+
+    private void agregarMoneda(int valor) {
+        panelMonedas.addMoneda(valor); // Agrega la moneda al panel
+    }
+
 }
