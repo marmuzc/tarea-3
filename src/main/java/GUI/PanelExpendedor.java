@@ -20,7 +20,7 @@ public class PanelExpendedor extends JPanel {
 
     public PanelExpendedor() {
         expendedor = new Expendedor(5); // Inicializa el expendedor con 5 productos de cada tipo
-        this.setBackground(Color.white);
+        this.setBackground(Color.darkGray);
         this.setLayout(new BorderLayout());
 
         imagenCoca = new ImageIcon("src/resources/Cocacola.png").getImage();
@@ -29,15 +29,12 @@ public class PanelExpendedor extends JPanel {
         imagenSuper8 = new ImageIcon("src/resources/Super8.png").getImage();
 
         panelBotones = new PanelBotonesExp(expendedor);
-       // panelBotones.setLayout(new GridLayout(2, 2));
         panelBotones.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        panelBotones.setPreferredSize(new Dimension(250, 400));
+        panelBotones.setPreferredSize(new Dimension(240, 700));
 
         JPanel contenedorBotones = new JPanel();
         contenedorBotones.setLayout(new FlowLayout());
         contenedorBotones.add(panelBotones);
-     //   contenedorBotones.setPreferredSize(new Dimension(300, 300));
-
         this.add(contenedorBotones, BorderLayout.EAST);
     }
 
