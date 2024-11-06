@@ -5,50 +5,39 @@ import java.awt.*;
 
 public class PanelComprador extends JPanel {
     private Image imagenComprador;
-    private PanelAgregarDinero panelAgregarDinero;
+    private Image fondoComprador;
     private PanelBilletera panelBilletera;
     private PanelInventario panelInventario;
 
     public PanelComprador() {
         // Configura el diseño principal como BorderLayout
+        fondoComprador = new ImageIcon("src/resources/fondoComprador.jpeg").getImage();
         this.setLayout(new BorderLayout());
-        this.setBackground(Color.LIGHT_GRAY); // Fondo para el PanelComprador
-
+       setBackground(Color.lightGray); // Cambia el fondo del panel principal
         // Carga la imagen del comprador
         imagenComprador = new ImageIcon("src/resources/Kanye.png").getImage();
 
-        // Crea y configura el panel para agregar dinero en el borde izquierdo
-        panelAgregarDinero = new PanelAgregarDinero();
-        panelAgregarDinero.setLayout(new GridLayout(3, 1));
-        panelAgregarDinero.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        panelAgregarDinero.setBackground(Color.LIGHT_GRAY); // Fondo del panel de agregar dinero
 
-        // Añade el panel para agregar dinero al borde izquierdo
-        this.add(panelAgregarDinero, BorderLayout.WEST);
-
-        // Crea y configura el panel de billetera y el panel de inventario
-        JPanel panelLateral = new JPanel(); // Nuevo panel contenedor
-        panelLateral.setLayout(new FlowLayout()); // Establecer el diseño como FlowLayout
-        panelLateral.setBackground(Color.LIGHT_GRAY); // Fondo del panel lateral
+        JPanel panelInferior = new JPanel(); // Nuevo panel contenedor
+        panelInferior.setLayout(new FlowLayout()); // Establecer el diseño como FlowLayout
+        panelInferior.setBackground(Color.lightGray); // Fondo del panel lateral
 
         // Inicializa y configura el panel de la billetera
         panelBilletera = new PanelBilletera();
         panelBilletera.setLayout(new FlowLayout());
-        //panelBilletera.setBorder(BorderFactory.createEmptyBorder(10, 500, 10, 10));
         panelBilletera.setBackground(Color.LIGHT_GRAY); // Fondo del panel de la billetera
 
         // Inicializa y configura el panel de inventario
         panelInventario = new PanelInventario();
         panelInventario.setLayout(new FlowLayout());
-        //panelInventario.setBorder(BorderFactory.createEmptyBorder(10, 500, 10, 10));
         panelInventario.setBackground(Color.LIGHT_GRAY); // Fondo del panel de la mochila
 
         // Añade ambos paneles al panel lateral
-        panelLateral.add(panelBilletera);
-        panelLateral.add(panelInventario);
+        panelInferior.add(panelBilletera);
+        panelInferior.add(panelInventario);
 
         // Añade el panel lateral al borde inferior
-        this.add(panelLateral, BorderLayout.SOUTH); // Añade el panel lateral al borde inferior
+        this.add(panelInferior, BorderLayout.SOUTH); // Añade el panel lateral al borde inferior
 
     }
 
@@ -60,10 +49,15 @@ public class PanelComprador extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
+        if (fondoComprador != null) {
+            g.drawImage(fondoComprador, 0, 0, getWidth(), getHeight(), this);
+        }
+
+
         if (imagenComprador != null) {
-            int imageWidth = 500;
-            int imageHeight = 500;
-            int imageX = 120; // Margen izquierdo
+            int imageWidth = 450;
+            int imageHeight = 450;
+            int imageX = 10; // Margen izquierdo
             int imageY = 10; // Centra verticalmente la imagen
 
             // Dibuja la imagen en la posición y tamaño especificados
@@ -71,5 +65,7 @@ public class PanelComprador extends JPanel {
         } else {
             g.drawString("Imagen no encontrada", 10, 20);
         }
+
+
     }
 }
