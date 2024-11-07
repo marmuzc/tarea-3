@@ -229,6 +229,7 @@ public class PanelBotonesExp extends JPanel {
             panelComprador.getPanelInventario().agregarProducto(productoComprado);
             JOptionPane.showMessageDialog(null, productoComprado.getNombre() + " añadido al inventario.");
             productoComprado = null;
+            panelExpendedor.actualizarProductoComprado(productoComprado);
         } else {
             JOptionPane.showMessageDialog(this, "No hay producto disponible para retirar");
         }

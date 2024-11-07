@@ -83,23 +83,22 @@ public class PanelExpendedor extends JPanel {
 
         if (productoComprado != null) {
             switch (productoComprado.getNombre()) {
-                case "COCACOLA":
+                case "Cocacola":
                     imagenProducto = imagenCoca;
-                    g.drawImage(imagenCoca, 100, 300, 150, 150, this);
                     break;
-                case "SPRITE":  
+                case "Sprite":  
                     imagenProducto = imagenSprite;
                     break;
-                case "SUPER8":
+                case "Super8":
                     imagenProducto = imagenSuper8;
                     break;
-                case "SNICKERS":
+                case "Snickers":
                     imagenProducto = imagenSnickers;
                     break;
             }
         }
-        if (imagenProducto != null) {
-            g.drawImage(imagenProducto, 100, 300, 150, 150, this);
+        if (imagenProducto != null && productoComprado != null) {
+            g.drawImage(imagenProducto, 180, 520, 150, 150, this);
 
         }
     }
