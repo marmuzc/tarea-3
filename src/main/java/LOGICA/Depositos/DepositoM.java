@@ -36,4 +36,6 @@ public class DepositoM extends Deposito<Moneda> {
     public void limpiarDeposito() {
         super.limpiarDeposito();
     }
+
+
 }

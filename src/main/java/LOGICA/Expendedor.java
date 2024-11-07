@@ -115,10 +115,11 @@ public class Expendedor {
      */
     private void devolverVuelto(int valorMoneda) {
         // Mientras quede saldo por devolver, se añaden monedas de 100 al depósito
-        while (valorMoneda != 0) {
+        while (valorMoneda > 0) {
             monVu.addMoneda(new Moneda100());
             valorMoneda -= 100;
         }
+        pagoUsuario = 0;
     }
 
     /**
@@ -137,7 +138,12 @@ public class Expendedor {
      * @return Una moneda del vuelto, o null si no hay vuelto disponible.
      */
     public DepositoM getVuelto() {
-        return monVu;
+        depositoMonedas.limpiarDeposito();
+        for (Moneda moneda : monVu.getDeposito()){
+            depositoMonedas.addMoneda(moneda);
+        }
+        monVu.limpiarDeposito();
+        return depositoMonedas;
     }
 
 }

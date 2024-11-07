@@ -48,7 +48,7 @@ public class Deposito<T> {
     }
 
     public void limpiarDeposito() {
-        this.deposito.clear();
+        deposito.clear();
     }
 }
 
