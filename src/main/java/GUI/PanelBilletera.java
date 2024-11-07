@@ -104,7 +104,7 @@ public class PanelBilletera extends JPanel {
                 }
             }
         };
-        
+
         panelMonedas.setPreferredSize(new Dimension(200, 150));
         monedasFrame.add(panelMonedas);
         monedasFrame.setVisible(true); // Mostrar la ventana
