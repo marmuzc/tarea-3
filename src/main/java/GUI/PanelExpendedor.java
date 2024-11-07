@@ -48,6 +48,7 @@ public class PanelExpendedor extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
 
         // Dibuja el fondo y los elementos gráficos
         g.setColor(Color.DARK_GRAY);
@@ -85,21 +86,25 @@ public class PanelExpendedor extends JPanel {
             switch (productoComprado.getNombre()) {
                 case "Cocacola":
                     imagenProducto = imagenCoca;
+                    g2d.rotate(Math.PI / 2, 180 + imagenProducto.getWidth(this) / 2, 250 + imagenProducto.getHeight(this) / 2);
+                    g.drawImage(imagenProducto, 450, 600, 150, 150, this);
+                    g2d.rotate(-Math.PI / 2, 180 + imagenProducto.getWidth(this) / 2, 250 + imagenProducto.getHeight(this) / 2);
                     break;
                 case "Sprite":  
                     imagenProducto = imagenSprite;
+                    g2d.rotate(Math.PI / 2, 180 + imagenProducto.getWidth(this) / 2, 250 + imagenProducto.getHeight(this) / 2);
+                    g.drawImage(imagenProducto, 450, 790, 150, 150, this);
+                    g2d.rotate(-Math.PI / 2, 180 + imagenProducto.getWidth(this) / 2, 250 + imagenProducto.getHeight(this) / 2);
                     break;
                 case "Super8":
                     imagenProducto = imagenSuper8;
+                    g.drawImage(imagenProducto, 180, 520, 150, 150, this);
                     break;
                 case "Snickers":
                     imagenProducto = imagenSnickers;
+                    g.drawImage(imagenProducto, 180, 520, 150, 150, this);
                     break;
             }
-        }
-        if (imagenProducto != null && productoComprado != null) {
-            g.drawImage(imagenProducto, 180, 520, 150, 150, this);
-
         }
     }
 }
