@@ -1,3 +1,4 @@
+//Ya no es necesario
 package GUI;
 import javax.swing.*;
 import java.awt.*;
@@ -5,6 +6,7 @@ import java.util.ArrayList;
 
 public class PanelMonedas extends JPanel {
     private ArrayList<Integer> monedas = new ArrayList<>();
+    //Quiza cambiar por depositoM
 
     public PanelMonedas() {
         setPreferredSize(new Dimension(200, 120));

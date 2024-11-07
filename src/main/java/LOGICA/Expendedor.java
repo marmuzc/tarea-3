@@ -18,7 +18,7 @@ public class Expendedor {
     private DepositoP super8;  // Depósito de Super8
     private DepositoP depositoProductoComprado;  // Depósito especial para un solo producto
     private int pagoUsuario;  // Pago ingresado por el usuario
-    private Productos producto;  // Producto comprado
+    private Productos productoComprado;  // Producto comprado
 
     /**
      * Constructor del expendedor.
@@ -55,14 +55,16 @@ public class Expendedor {
      * @throws PagoInsuficienteException Si el pago es menor al precio del producto.
      * @throws PagoIncorrectoException Si no se ingresó una moneda válida.
      */
-    public void comprarProducto(Moneda m, productosEnum cual) throws NoHayProductoException, PagoInsuficienteException, PagoIncorrectoException {
+    public void comprarProducto(DepositoM m, productosEnum cual) throws NoHayProductoException, PagoInsuficienteException, PagoIncorrectoException {
         if (m == null) { // Si no hay moneda, no se puede realizar la compra
             throw new PagoIncorrectoException("Error al comprar, no se ingresó moneda");
         }
+        pagoUsuario = 0;
+        for (Moneda moneda : m.getDeposito()) {
+            pagoUsuario = pagoUsuario + moneda.getValor();
+        }
 
-        pagoUsuario = m.getValor();  // El valor de la moneda ingresada
-
-        Productos productoComprado = null;  // Inicializamos el producto comprado como null
+        productoComprado = null;  // Inicializamos el producto comprado como null
 
         // Selección del producto según el tipo solicitado
         switch (cual) {
@@ -95,7 +97,7 @@ public class Expendedor {
         // Si la compra es exitosa
         if (productoComprado != null) {
             // Añadir moneda ingresada al depósito de compras exitosas
-            depositoMonedas.addMoneda(m);
+            //depositoMonedas.addMoneda(m);
 
             pagoUsuario -= this.precio;  // Resta el precio del producto al pago
             devolverVuelto(pagoUsuario);  // Devuelve el vuelto si corresponde
@@ -134,7 +136,7 @@ public class Expendedor {
      *
      * @return Una moneda del vuelto, o null si no hay vuelto disponible.
      */
-    public Moneda getVuelto() {
-        return monVu.getMoneda();
+    public DepositoM getVuelto() {
+        return monVu;
     }
 }

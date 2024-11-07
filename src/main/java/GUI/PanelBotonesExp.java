@@ -13,19 +13,19 @@ import java.awt.*;
 public class PanelBotonesExp extends JPanel {
     private JLabel saldoLabel;
     private DepositoM depositoSaldo;
-    private double saldoDisponible = 4500; // Monto inicial del saldo
+    private double saldoDisponible = 0; // Monto inicial del saldo
     private Expendedor expendedor; //test
     private Productos productoComprado;
     private PanelComprador panelComprador; // Referencia a PanelComprador
-    //test
-    private Moneda moneda;
-    private PanelMonedas panelMonedas;
-    
+    private PanelExpendedor panelExpendedor; //Refencia a PanelExpendedor
 
-    public PanelBotonesExp(PanelComprador panelComprador) {
+    
+    public PanelBotonesExp(PanelComprador panelComprador, PanelExpendedor panelExpendedor) {
         this.panelComprador = panelComprador;
+        this.panelExpendedor = panelExpendedor;
 
         expendedor = new Expendedor(5);
+        depositoSaldo = new DepositoM();
         
         // Cambia el fondo del panel principal a gris oscuro
         this.setBackground(Color.DARK_GRAY);
@@ -54,26 +54,21 @@ public class PanelBotonesExp extends JPanel {
 
         JPanel panelVuelto = new JPanel();
         panelVuelto.setBackground(Color.DARK_GRAY); // Cambia el fondo de este panel
+
         JButton botonVuelto = new JButton("Retirar Vuelto");
         botonVuelto.addActionListener(e -> retirarVuelto());
         panelVuelto.add(botonVuelto);
 
         JPanel panelRetirarProducto = new JPanel();
         panelRetirarProducto.setBackground(Color.DARK_GRAY); // Cambia el fondo de este panel
+
         JButton botonRetirarProducto = new JButton("Retirar Producto");
-        //Viejo
         botonRetirarProducto.addActionListener(e -> retirarProducto());
-        //Nuevo
-        botonRetirarProducto.addActionListener(e -> JOptionPane.showMessageDialog(null, "Producto en inventario!"));
         panelRetirarProducto.add(botonRetirarProducto);
 
         JPanel panelAgregarDinero = new JPanel();
         panelAgregarDinero.setLayout(new GridLayout(3, 1));
         panelAgregarDinero.setBackground(Color.DARK_GRAY); // Cambia el fondo de este panel
-
-        // Inicializa el panelMonedas
-        panelMonedas = new PanelMonedas();
-        panelMonedas.setBackground(Color.DARK_GRAY); // Cambia el fondo de panelMonedas
 
         // Botones de agregar dinero
         JButton boton100 = new JButton("Agregar $100");
@@ -90,19 +85,34 @@ public class PanelBotonesExp extends JPanel {
         boton1000.setForeground(Color.WHITE);
 
         boton100.addActionListener(e -> {
-            agregarMoneda(100);
-            actualizarSaldo();
+            if (panelComprador.getPanelBilletera().quitarMoneda(100)) {
+                depositoSaldo.addMoneda(new Moneda100());
+                saldoDisponible += 100;
+                actualizarSaldo();
+            } else {
+                JOptionPane.showMessageDialog(this, "No hay monedas de $100 en la billetera");
+            }
         });
-
+        
         boton500.addActionListener(e -> {
-            agregarMoneda(500);
-            actualizarSaldo();
+            if (panelComprador.getPanelBilletera().quitarMoneda(500)) {
+                depositoSaldo.addMoneda(new Moneda500());
+                saldoDisponible += 500;
+                actualizarSaldo();
+            } else {
+                JOptionPane.showMessageDialog(this, "No hay monedas de $500 en la billetera");
+            }
         });
-
+        
         boton1000.addActionListener(e -> {
-            agregarMoneda(1000);
-            actualizarSaldo();
-        });
+            if (panelComprador.getPanelBilletera().quitarMoneda(1000)) {
+                depositoSaldo.addMoneda(new Moneda1000());
+                saldoDisponible += 1000;
+                actualizarSaldo();
+            } else {
+                JOptionPane.showMessageDialog(this, "No hay monedas de $1000 en la billetera");
+            }
+        });        
 
         panelAgregarDinero.add(boton100);
         panelAgregarDinero.add(boton500);
@@ -123,8 +133,6 @@ public class PanelBotonesExp extends JPanel {
         // Añadir los paneles y componentes al panel principal en el orden deseado
         add(panelAgregarDinero); // Añade los botones primero
         add(Box.createRigidArea(new Dimension(0, 10)));
-        add(panelMonedas); // Luego el panel para mostrar las monedas
-        add(Box.createRigidArea(new Dimension(0, 15)));
         add(saldoLabel);
         add(Box.createRigidArea(new Dimension(0, 15)));
         add(labelProductos);
@@ -138,51 +146,23 @@ public class PanelBotonesExp extends JPanel {
 
     private void comprarProducto(productosEnum productoEnum) {
         try {
-            Moneda moneda = new Moneda1000(); // Simulación de una moneda de pago de 100
-            expendedor.comprarProducto(moneda, productoEnum);
+            expendedor.comprarProducto(depositoSaldo, productoEnum);
             productoComprado = expendedor.getProductoComprado();
-            
+            panelExpendedor.actualizarProductoComprado(productoComprado);
+
             saldoDisponible -= productoEnum.getPrecio(); // Descontar el saldo
             actualizarSaldo();
 
+            depositoSaldo = expendedor.getVuelto();
 
             JOptionPane.showMessageDialog(this, "Puede retirar su " + productoEnum);
+            JOptionPane.showMessageDialog(this, "Vuelto: $" + saldoDisponible);
         } catch (PagoInsuficienteException | NoHayProductoException | PagoIncorrectoException e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    /**private void comprarProducto(productosEnum producto) {
-        try {
-            expendedor.comprarProducto(moneda, producto);
-
-            Moneda vuelto = expendedor.getVuelto();
-            if (vuelto != null) {
-                JOptionPane.showMessageDialog(this, "Vuelto: $" + vuelto.getValor());
-            }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage());
-        }**/
+        }
     }
 
     private void retirarVuelto() {
-        Moneda vuelto = expendedor.getVuelto();
-        if (vuelto != null) {
-            saldoDisponible += vuelto.getValor();
-            actualizarSaldo();
-            JOptionPane.showMessageDialog(this, "Vuelto retirado: $" + vuelto.getValor());
-        } else {
-            JOptionPane.showMessageDialog(this, "No hay vuelto disponible");
-        }
-    }
-
-    private void retirarProducto() {
-        if (productoComprado != null) {
-            JOptionPane.showMessageDialog(this, "Producto retirado: " + productoComprado.getNombre());
-            panelComprador.getPanelInventario().agregarProducto(productoComprado); // Añade al inventario
-            JOptionPane.showMessageDialog(null, productoComprado.getNombre() + " añadido al inventario.");
-
-        } else {
-            JOptionPane.showMessageDialog(this, "No hay producto disponible para retirar");
-        }
-        /**
         JFrame ventanaVuelto = new JFrame("Vuelto");
         ventanaVuelto.setSize(300, 200);
         ventanaVuelto.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -191,6 +171,9 @@ public class PanelBotonesExp extends JPanel {
         JButton botonRetirarVuelto = new JButton("Retirar Vuelto");
         botonRetirarVuelto.addActionListener(e -> {
             JOptionPane.showMessageDialog(null, "Vuelto retirado!");
+            for (Moneda moneda : depositoSaldo.getDeposito()) {
+                panelComprador.getPanelBilletera().agregarMoneda(moneda);
+            }
             saldoDisponible = 0.0;
             actualizarSaldo();
             ventanaVuelto.dispose();
@@ -200,14 +183,21 @@ public class PanelBotonesExp extends JPanel {
         ventanaVuelto.add(vueltoLabel);
         ventanaVuelto.add(botonRetirarVuelto);
         ventanaVuelto.setVisible(true);
-        **/
+    }
+
+    private void retirarProducto() {
+        if (productoComprado != null) {
+            JOptionPane.showMessageDialog(this, "Producto retirado: " + productoComprado.getNombre());
+            panelComprador.getPanelInventario().agregarProducto(productoComprado); // Añade al inventario
+            JOptionPane.showMessageDialog(null, productoComprado.getNombre() + " añadido al inventario.");
+            productoComprado = null;
+
+        } else {
+            JOptionPane.showMessageDialog(this, "No hay producto disponible para retirar");
+        }
     }
 
     private void actualizarSaldo() {
         saldoLabel.setText("Saldo: $" + saldoDisponible);
-    }
-
-    private void agregarMoneda(int valor) {
-        panelMonedas.addMoneda(valor); // Agrega la moneda al panel
     }
 }

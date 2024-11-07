@@ -3,6 +3,7 @@ package GUI;
 import javax.swing.*;
 import java.awt.*;
 import LOGICA.*;
+import LOGICA.Productos.Productos;
 
 public class PanelExpendedor extends JPanel {
     private Image imagenCoca;
@@ -10,6 +11,8 @@ public class PanelExpendedor extends JPanel {
     private Image imagenSnickers;
     private Image imagenSuper8;
     private PanelBotonesExp panelBotones;
+    private Productos productoComprado;
+    private Image imagenProducto;
 
     // Variables para los precios de los productos
     private final String precioCoca = "(3) - $1200";
@@ -26,7 +29,7 @@ public class PanelExpendedor extends JPanel {
         imagenSnickers = new ImageIcon("src/resources/Snickers.png").getImage();
         imagenSuper8 = new ImageIcon("src/resources/Super8.png").getImage();
 
-        panelBotones = new PanelBotonesExp(panelComprador);
+        panelBotones = new PanelBotonesExp(panelComprador, this);
         panelBotones.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         panelBotones.setPreferredSize(new Dimension(240, 700));
 
@@ -36,6 +39,11 @@ public class PanelExpendedor extends JPanel {
         this.add(contenedorBotones, BorderLayout.EAST);
     }
 
+    public void actualizarProductoComprado(Productos producto) {
+        this.productoComprado = producto;
+        repaint(); // Redibuja el panel para mostrar el producto
+    }
+    
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -70,6 +78,28 @@ public class PanelExpendedor extends JPanel {
             g.drawImage(imagenSuper8, 260, 100, 150, 150, this);
             g.setColor(Color.WHITE);
             g.drawString(precioSuper8, 300, 230); // Dibuja el precio debajo de la imagen de Super8
+        }
+
+        if (productoComprado != null) {
+            switch (productoComprado.getNombre()) {
+                case "COCACOLA":
+                    imagenProducto = imagenCoca;
+                    g.drawImage(imagenCoca, 100, 300, 150, 150, this);
+                    break;
+                case "SPRITE":  
+                    imagenProducto = imagenSprite;
+                    break;
+                case "SUPER8":
+                    imagenProducto = imagenSuper8;
+                    break;
+                case "SNICKERS":
+                    imagenProducto = imagenSnickers;
+                    break;
+            }
+        }
+        if (imagenProducto != null) {
+            g.drawImage(imagenProducto, 100, 300, 150, 150, this);
+
         }
     }
 }
