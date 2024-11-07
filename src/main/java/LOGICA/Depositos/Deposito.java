@@ -47,6 +47,8 @@ public class Deposito<T> {
         return null;  // Retorna null si el depósito está vacío
     }
 
-    
+    public void limpiarDeposito() {
+        this.deposito.clear();
+    }
 }
 

@@ -211,8 +211,8 @@ public class PanelBotonesExp extends JPanel {
 
             // Reiniciar el saldo disponible y el depósito de monedas
             saldoDisponible = 0.0;
-            //depositoSaldo.limpiarDeposito(); // Asegúrate de que el método limpiar() borre el depósito
             actualizarSaldo();
+            depositoSaldo.limpiarDeposito();
             ventanaVuelto.dispose();
         });
 

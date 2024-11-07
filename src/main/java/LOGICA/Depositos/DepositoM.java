@@ -33,4 +33,7 @@ public class DepositoM extends Deposito<Moneda> {
         return super.getProducto();  // Utiliza el método de la clase padre para obtener una moneda
     }
 
+    public void limpiarDeposito() {
+        super.limpiarDeposito();
+    }
 }
