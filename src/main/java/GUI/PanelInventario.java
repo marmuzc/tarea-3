@@ -67,4 +67,6 @@ public class PanelInventario extends JPanel {
 
         productosFrame.setVisible(true); // Mostrar la ventana
     }
+
+
 }

@@ -43,7 +43,8 @@ public class PanelExpendedor extends JPanel {
         this.productoComprado = producto;
         repaint(); // Redibuja el panel para mostrar el producto
     }
-    
+
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
