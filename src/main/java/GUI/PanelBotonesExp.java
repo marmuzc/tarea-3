@@ -190,6 +190,11 @@ public class PanelBotonesExp extends JPanel {
 
 
     private void retirarVuelto() {
+        if (saldoDisponible <= 0) {
+            JOptionPane.showMessageDialog(this, "No hay vuelto para retirar.");
+            return;
+        }
+
         JFrame ventanaVuelto = new JFrame("Vuelto");
         ventanaVuelto.setSize(300, 200);
         ventanaVuelto.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -198,10 +203,15 @@ public class PanelBotonesExp extends JPanel {
         JButton botonRetirarVuelto = new JButton("Retirar Vuelto");
         botonRetirarVuelto.addActionListener(e -> {
             JOptionPane.showMessageDialog(null, "Vuelto retirado!");
+
+            // Entregar cada moneda del depósito de vuelto al panel de billetera
             for (Moneda moneda : depositoSaldo.getDeposito()) {
                 panelComprador.getPanelBilletera().agregarMoneda(moneda);
             }
+
+            // Reiniciar el saldo disponible y el depósito de monedas
             saldoDisponible = 0.0;
+            //depositoSaldo.limpiarDeposito(); // Asegúrate de que el método limpiar() borre el depósito
             actualizarSaldo();
             ventanaVuelto.dispose();
         });
@@ -211,6 +221,7 @@ public class PanelBotonesExp extends JPanel {
         ventanaVuelto.add(botonRetirarVuelto);
         ventanaVuelto.setVisible(true);
     }
+
 
     private void retirarProducto() {
         if (productoComprado != null) {

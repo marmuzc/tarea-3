@@ -11,9 +11,9 @@ public class PanelComprador extends JPanel {
 
     public PanelComprador() {
         // Configura el diseño principal como BorderLayout
-        fondoComprador = new ImageIcon("src/resources/fondoComprador.jpeg").getImage();
+        fondoComprador = new ImageIcon("src/resources/FondoComprador1.JPG").getImage();
         this.setLayout(new BorderLayout());
-        setBackground(Color.lightGray); // Cambia el fondo del panel principal
+       // setBackground(Color.lightGray); // Cambia el fondo del panel principal
         // Carga la imagen del comprador
         imagenComprador = new ImageIcon("src/resources/Kanye.png").getImage();
 
@@ -62,7 +62,7 @@ public class PanelComprador extends JPanel {
             int imageWidth = 450;
             int imageHeight = 450;
             int imageX = 10; // Margen izquierdo
-            int imageY = 10; // Centra verticalmente la imagen
+            int imageY = 70; // Centra verticalmente la imagen
 
             // Dibuja la imagen en la posición y tamaño especificados
             g.drawImage(imagenComprador, imageX, imageY, imageWidth, imageHeight, this);
