@@ -47,6 +47,7 @@ public class PanelBotonesExp extends JPanel {
 
         JPanel panelCantidadProductos = new JPanel();
         panelCantidadProductos.setLayout(new GridLayout(4, 1));
+        panelCantidadProductos.setPreferredSize(new Dimension(200, 100));
         cantidadCocaLabel = new JLabel("Coca Cola restantes: " + expendedor.getCantidadCoca());
         cantidadSpriteLabel = new JLabel("Sprite restantes: " + expendedor.getCantidadSprite());
         cantidadSnickersLabel = new JLabel("Snickers restantes: " + expendedor.getCantidadSnickers());
@@ -62,7 +63,6 @@ public class PanelBotonesExp extends JPanel {
         panelElegirProductos.setBackground(Color.DARK_GRAY);
 
 
-        // Creación de botones para productos
         botonSnickers = new JButton("1");
         botonSuper8 = new JButton("2");
         botonCoca = new JButton("3");
@@ -166,9 +166,18 @@ public class PanelBotonesExp extends JPanel {
         add(Box.createRigidArea(new Dimension(0, 25)));
         add(panelVuelto);
         add(panelRetirarProducto);
-        add(Box.createRigidArea(new Dimension(0, 25)));
+        add(Box.createRigidArea(new Dimension(0, 10)));
         add(panelCantidadProductos);
     }
+
+    private void actualizarCantidadProductos() {
+        // Actualiza el texto de cada JLabel para mostrar la cantidad actual de productos en el expendedor
+        cantidadCocaLabel.setText("Coca Cola restantes: " + expendedor.getCantidadCoca());
+        cantidadSpriteLabel.setText("Sprite restantes: " + expendedor.getCantidadSprite());
+        cantidadSnickersLabel.setText("Snickers restantes: " + expendedor.getCantidadSnickers());
+        cantidadSuper8Label.setText("Super8 restantes: " + expendedor.getCantidadSuper8());
+    }
+
 
     private void comprarProducto(productosEnum productoEnum) {
         // Verificar si el saldo es suficiente antes de intentar la compra
@@ -193,6 +202,9 @@ public class PanelBotonesExp extends JPanel {
 
             saldoDisponible -= productoEnum.getPrecio();
             actualizarSaldo();
+
+            actualizarCantidadProductos();
+
 
             depositoSaldo = expendedor.getVuelto();
 
