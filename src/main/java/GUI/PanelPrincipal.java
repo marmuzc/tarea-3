@@ -8,14 +8,12 @@ public class PanelPrincipal extends JPanel {
     private PanelExpendedor exp;
 
     public PanelPrincipal() {
-        // Inicializa los paneles
         com = new PanelComprador();
         exp = new PanelExpendedor(com);
 
-
         // Cambia el diseño a BorderLayout
         this.setLayout(new BorderLayout());
-        this.setBackground(Color.white);
+        this.setBackground(Color.LIGHT_GRAY); // Cambia el color de fondo del panel principal
 
         // Ajusta el tamaño preferido para que el panel del expendedor ocupe un 70% aprox.
         exp.setPreferredSize(new Dimension(800, 600)); // Ajusta el ancho (700 es solo un ejemplo)

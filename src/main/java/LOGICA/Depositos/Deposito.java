@@ -47,8 +47,16 @@ public class Deposito<T> {
         return null;  // Retorna null si el depósito está vacío
     }
 
+    /**
+     * Limpia el depósito de productos.
+     */
     public void limpiarDeposito() {
         deposito.clear();
     }
-}
 
+    /**
+     * Obtiene la cantidad de productos en el depósito.
+     *
+     * @return El número de productos en el depósito.
+     */
+}

@@ -13,7 +13,7 @@ public class PanelComprador extends JPanel {
         // Configura el diseño principal como BorderLayout
         fondoComprador = new ImageIcon("src/resources/FondoComprador1.JPG").getImage();
         this.setLayout(new BorderLayout());
-       // setBackground(Color.lightGray); // Cambia el fondo del panel principal
+        setBackground(Color.lightGray); // Cambia el fondo del panel principal
         // Carga la imagen del comprador
         imagenComprador = new ImageIcon("src/resources/Kanye.png").getImage();
 
@@ -25,12 +25,12 @@ public class PanelComprador extends JPanel {
         // Inicializa y configura el panel de la billetera
         panelBilletera = new PanelBilletera();
         panelBilletera.setLayout(new FlowLayout());
-        panelBilletera.setBackground(Color.LIGHT_GRAY); // Fondo del panel de la billetera
+        panelBilletera.setBackground(new Color(100, 150, 200));
 
         // Inicializa y configura el panel de inventario
         panelInventario = new PanelInventario();
         panelInventario.setLayout(new FlowLayout());
-        panelInventario.setBackground(Color.LIGHT_GRAY); // Fondo del panel de la mochila
+        panelInventario.setBackground(new Color(100, 150, 200)); // Fondo del panel de la mochila
 
         // Añade ambos paneles al panel lateral
         panelInferior.add(panelBilletera);
