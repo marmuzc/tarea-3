@@ -1,5 +1,6 @@
 package GUI;
 
+import LOGICA.Depositos.DepositoP;
 import LOGICA.Expendedor;
 import LOGICA.Monedas.*;
 import LOGICA.productosEnum;
@@ -10,36 +11,56 @@ import LOGICA.Productos.*;
 import javax.swing.*;
 import java.awt.*;
 
+
 public class PanelBotonesExp extends JPanel {
     private JLabel saldoLabel;
     private DepositoM depositoSaldo;
-    private double saldoDisponible = 0; // Monto inicial del saldo
+    private double saldoDisponible = 0;
     private Expendedor expendedor;
     private Productos productoComprado;
-    private PanelComprador panelComprador; // Referencia a PanelComprador
-    private PanelExpendedor panelExpendedor; // Refencia a PanelExpendedor
+    private PanelComprador panelComprador;
+    private PanelExpendedor panelExpendedor;
 
-    // Botones de productos
+    private JLabel cantidadCocaLabel;
+    private JLabel cantidadSpriteLabel;
+    private JLabel cantidadSnickersLabel;
+    private JLabel cantidadSuper8Label;
+
     private JButton botonSnickers;
     private JButton botonSuper8;
     private JButton botonCoca;
     private JButton botonSprite;
 
+
     public PanelBotonesExp(PanelComprador panelComprador, PanelExpendedor panelExpendedor) {
+        // Inicialización de paneles y componentes
         this.panelComprador = panelComprador;
         this.panelExpendedor = panelExpendedor;
 
-        expendedor = new Expendedor(5);
+        // Asegúrate de que el expendedor esté correctamente inicializado
+        expendedor = new Expendedor(5);  // Número de productos iniciales
         depositoSaldo = new DepositoM();
 
-        // Configuración del panel principal
+        // Configuración del panel
         this.setBackground(Color.DARK_GRAY);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
+        JPanel panelCantidadProductos = new JPanel();
+        panelCantidadProductos.setLayout(new GridLayout(4, 1));
+        cantidadCocaLabel = new JLabel("Coca Cola restantes: " + expendedor.getCantidadCoca());
+        cantidadSpriteLabel = new JLabel("Sprite restantes: " + expendedor.getCantidadSprite());
+        cantidadSnickersLabel = new JLabel("Snickers restantes: " + expendedor.getCantidadSnickers());
+        cantidadSuper8Label = new JLabel("Super8 restantes: " + expendedor.getCantidadSuper8());
+        panelCantidadProductos.add(cantidadCocaLabel);
+        panelCantidadProductos.add(cantidadSpriteLabel);
+        panelCantidadProductos.add(cantidadSnickersLabel);
+        panelCantidadProductos.add(cantidadSuper8Label);
 
         JPanel panelElegirProductos = new JPanel();
         panelElegirProductos.setLayout(new GridLayout(2, 2));
         panelElegirProductos.setPreferredSize(new Dimension(200, 100));
         panelElegirProductos.setBackground(Color.DARK_GRAY);
+
 
         // Creación de botones para productos
         botonSnickers = new JButton("1");
@@ -145,7 +166,8 @@ public class PanelBotonesExp extends JPanel {
         add(Box.createRigidArea(new Dimension(0, 25)));
         add(panelVuelto);
         add(panelRetirarProducto);
-
+        add(Box.createRigidArea(new Dimension(0, 25)));
+        add(panelCantidadProductos);
     }
 
     private void comprarProducto(productosEnum productoEnum) {

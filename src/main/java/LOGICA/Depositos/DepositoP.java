@@ -34,4 +34,8 @@ public class DepositoP extends Deposito<Productos> {
         return super.getProducto();  // Utiliza el método de la clase padre para obtener un producto
     }
 
+    public int getCantidadProductos() {
+        return super.getCantidadDeposito();
+    }
+
 }

@@ -146,4 +146,21 @@ public class Expendedor {
         return depositoMonedas;
     }
 
+    public int getCantidadCoca() {
+        return coca.getCantidadProductos();
+    }
+
+    public int getCantidadSprite() {
+        return sprite.getCantidadProductos();
+    }
+
+    public int getCantidadSnickers() {
+        return snickers.getCantidadProductos();
+    }
+
+    public int getCantidadSuper8() {
+        return super8.getCantidadProductos();
+    }
+
+
 }

@@ -59,4 +59,8 @@ public class Deposito<T> {
      *
      * @return El número de productos en el depósito.
      */
+    public int getCantidadDeposito() {
+        return deposito.size();
+    }
+
 }
