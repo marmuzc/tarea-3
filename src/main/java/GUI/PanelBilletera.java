@@ -7,30 +7,40 @@ import java.awt.event.MouseEvent;
 import LOGICA.Depositos.*;
 import LOGICA.Monedas.*;
 
+/**
+ * Clase PanelBilletera representa un panel de la billetera en la interfaz gráfica.
+ * Muestra una imagen de billetera, una etiqueta, y permite almacenar monedas en un depósito.
+ */
 public class PanelBilletera extends JPanel {
     private Image billetera; // Para almacenar la imagen de la billetera
-    private JLabel etiqueta; // Para la etiqueta que indica "Billetera"
+    private JLabel etiqueta; // Para la etiqueta de nombre "Billetera"
     private DepositoM monedas;
 
+    /**
+     * Constructor de PanelBilletera. Inicializa la imagen de la billetera, el depósito
+     * de monedas, y la etiqueta visual. También establece un saldo inicial de monedas
+     * y configura el evento de clic para mostrar las monedas en la billetera.
+     */
     public PanelBilletera() {
         setPreferredSize(new Dimension(150, 150));
         billetera = new ImageIcon("src/resources/Billetera.png").getImage();
         this.monedas = new DepositoM();
 
-        //Crear la etiqueta
+        //Crear la etiqueta con el nombre de la billetera
         etiqueta = new JLabel("Billetera");
         etiqueta.setHorizontalAlignment(SwingConstants.CENTER); // Centrar texto
         etiqueta.setFont(new Font("Arial", Font.BOLD, 14)); // Cambiar la fuente y tamaño
         etiqueta.setForeground(Color.BLACK); // Cambiar color del texto
-        etiqueta.setPreferredSize(new Dimension(200, 30)); // Establecer tamaño para la etiqueta
+        etiqueta.setPreferredSize(new Dimension(200, 30));
 
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                mostrarMonedas(); // Llama a mostrarMonedas al hacer clic
+                mostrarMonedas(); // Llama a mostrarMonedas al hacer click
             }
         });
-        //Saldo inicial del comprador
+
+        //Saldo inicial del comprador predefinido por nosotros 3 monedas de cada tipo
         monedas.addMoneda(new Moneda1000());
         monedas.addMoneda(new Moneda1000());
         monedas.addMoneda(new Moneda1000());
@@ -45,24 +55,37 @@ public class PanelBilletera extends JPanel {
         this.add(etiqueta, BorderLayout.NORTH); // Añadir etiqueta en la parte superior
     }
 
-    // Método para mostrar la imagen de la billetera
+    /**
+     * Sobrescribe el metodo paintComponent para mostrar la imagen de la billetera.
+     *
+     * @param g El contexto gráfico.
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(billetera, 0, 30, getWidth(), getHeight() - 30, this); // Dibuja la imagen debajo de la etiqueta
     }
 
-    // Método para agregar una moneda al depósito y actualizar la interfaz
+    /**
+     * Agrega una moneda al depósito y actualiza la interfaz.
+     *
+     * @param moneda La moneda a agregar al depósito.
+     */
     public void agregarMoneda(Moneda moneda) {
         monedas.addMoneda(moneda);
         repaint();
     }
 
-    // Método para quitar una moneda específica según su valor
+    /**
+     * Quita una moneda del depósito según su valor.
+     *
+     * @param valor El valor de la moneda a quitar.
+     * @return true si la moneda se encontró y fue removida, false si no se encontró.
+     */
     public boolean quitarMoneda(int valor) {
-        for (Moneda moneda : monedas.getDeposito()) {
-            if (moneda.getValor() == valor) {
-                monedas.getDeposito().remove(moneda);
+        for (Moneda moneda : monedas.getDeposito()) { // Itera sobre las monedas en el depósito
+            if (moneda.getValor() == valor) { // Compara el valor de la moneda
+                monedas.getDeposito().remove(moneda); // Remueve la moneda del depósito
                 repaint(); // Actualiza la interfaz después de quitar la moneda
                 return true; // Moneda encontrada y removida
             }
@@ -70,8 +93,9 @@ public class PanelBilletera extends JPanel {
         return false; // No se encontró una moneda con el valor especificado
     }
 
-
-    // Método para mostrar la ventana con las monedas
+    /**
+     * Muestra una ventana emergente con las monedas almacenadas en el depósito.
+     */
     private void mostrarMonedas() {
         JFrame monedasFrame = new JFrame("Monedas en la Billetera");
         monedasFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -110,7 +134,12 @@ public class PanelBilletera extends JPanel {
         monedasFrame.setVisible(true); // Mostrar la ventana
     }
 
-    // Método para asignar un color a cada moneda en función de su valor
+    /**
+     * Asigna un color a cada moneda en función de su valor.
+     *
+     * @param moneda La moneda a la que se le asignará un color.
+     * @return Color correspondiente al valor de la moneda.
+     */
     private Color monedaColor(Moneda moneda) {
         switch (moneda.getValor()) {
             case 1000: return new Color(212, 175, 55); // Dorado

@@ -31,10 +31,21 @@ public abstract class Moneda implements Comparable<Moneda> {
         return numeroDeSerie;
     }
 
+    /**
+     * Representación en cadena de la moneda.
+     * @return una cadena que representa la moneda.
+     */
     @Override
     public String toString() {
         return "Moneda{valor =" + getValor() + ", numeroSerie =" + getNumeroDeSerie() + "}";
     }
+
+    /**
+     * Compara dos monedas por su valor.
+     *
+     * @param otraMoneda La moneda con la que se compara.
+     * @return un valor negativo si esta moneda es menor que la otra, cero si son iguales, y un valor positivo si es mayor.
+     */
 
     @Override
     public int compareTo(Moneda otraMoneda) {

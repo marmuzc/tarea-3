@@ -53,7 +53,6 @@ public class Deposito<T> {
     public void limpiarDeposito() {
         deposito.clear();
     }
-
     /**
      * Obtiene la cantidad de productos en el depósito.
      *
@@ -62,5 +61,4 @@ public class Deposito<T> {
     public int getCantidadDeposito() {
         return deposito.size();
     }
-
 }

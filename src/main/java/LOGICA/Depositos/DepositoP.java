@@ -21,7 +21,7 @@ public class DepositoP extends Deposito<Productos> {
      * @param producto El producto que se desea agregar al depósito.
      */
     public void addProducto(Productos producto) {
-        super.addDeposito(producto);  // Utiliza el método de la clase padre para agregar un producto
+        super.addDeposito(producto);  // Utiliza el metodo de la clase padre para agregar un producto
     }
 
     /**
@@ -31,9 +31,13 @@ public class DepositoP extends Deposito<Productos> {
      */
     @Override
     public Productos getProducto() {
-        return super.getProducto();  // Utiliza el método de la clase padre para obtener un producto
+        return super.getProducto();  // Utiliza el metodo de la clase padre para obtener un producto
     }
 
+
+    /**
+     * Limpia el depósito de productos.
+     */
     public int getCantidadProductos() {
         return super.getCantidadDeposito();
     }

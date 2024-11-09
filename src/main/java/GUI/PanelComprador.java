@@ -3,52 +3,71 @@ package GUI;
 import javax.swing.*;
 import java.awt.*;
 
+
+/**
+ * Clase PanelComprador representa el panel del comprador en la interfaz gráfica.
+ * Contiene la billetera y el inventario del comprador, y muestra una imagen de fondo y del comprador.
+ */
+
 public class PanelComprador extends JPanel {
     private Image imagenComprador;
     private Image fondoComprador;
     private PanelBilletera panelBilletera;
     private PanelInventario panelInventario;
 
+    /**
+     * Constructor de PanelComprador. Inicializa los componentes y configura el panel.
+     */
     public PanelComprador() {
-        // Configura el diseño principal como BorderLayout
         fondoComprador = new ImageIcon("src/resources/FondoComprador1.JPG").getImage();
         this.setLayout(new BorderLayout());
-        setBackground(Color.lightGray); // Cambia el fondo del panel principal
-        // Carga la imagen del comprador
+        setBackground(Color.lightGray);
         imagenComprador = new ImageIcon("src/resources/Kanye.png").getImage();
 
 
-        JPanel panelInferior = new JPanel(); // Nuevo panel contenedor
-        panelInferior.setLayout(new FlowLayout()); // Establecer el diseño como FlowLayout
-        panelInferior.setBackground(Color.lightGray); // Fondo del panel lateral
+        JPanel panelInferior = new JPanel();
+        panelInferior.setLayout(new FlowLayout());
+        panelInferior.setBackground(Color.lightGray);
 
-        // Inicializa y configura el panel de la billetera
         panelBilletera = new PanelBilletera();
         panelBilletera.setLayout(new FlowLayout());
         panelBilletera.setBackground(new Color(100, 150, 200));
 
-        // Inicializa y configura el panel de inventario
         panelInventario = new PanelInventario();
         panelInventario.setLayout(new FlowLayout());
-        panelInventario.setBackground(new Color(100, 150, 200)); // Fondo del panel de la mochila
+        panelInventario.setBackground(new Color(100, 150, 200));
 
-        // Añade ambos paneles al panel lateral
         panelInferior.add(panelBilletera);
         panelInferior.add(panelInventario);
 
-        // Añade el panel lateral al borde inferior
-        this.add(panelInferior, BorderLayout.SOUTH); // Añade el panel lateral al borde inferior
+        this.add(panelInferior, BorderLayout.SOUTH);
 
     }
+
+    /**
+     * Obtiene el panel de inventario del comprador.
+     *
+     * @return El panel de inventario.
+     */
 
     public PanelInventario getPanelInventario() {
         return panelInventario;
     }
 
+    /**
+     * Obtiene el panel de la billetera del comprador.
+     *
+     * @return El panel de la billetera.
+     */
     public PanelBilletera getPanelBilletera() {
         return panelBilletera;
     }
 
+    /**
+     * Sobrescribe el metodo paintComponent para mostrar la imagen de fondo y la imagen del comprador.
+     *
+     * @param g El contexto gráfico.
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -61,15 +80,12 @@ public class PanelComprador extends JPanel {
         if (imagenComprador != null) {
             int imageWidth = 450;
             int imageHeight = 450;
-            int imageX = 10; // Margen izquierdo
-            int imageY = 70; // Centra verticalmente la imagen
+            int imageX = 10;
+            int imageY = 70;
 
-            // Dibuja la imagen en la posición y tamaño especificados
             g.drawImage(imagenComprador, imageX, imageY, imageWidth, imageHeight, this);
         } else {
             g.drawString("Imagen no encontrada", 10, 20);
         }
-
-
     }
 }

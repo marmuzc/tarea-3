@@ -11,6 +11,10 @@ import LOGICA.Productos.*;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Clase PanelBotonesExp representa el panel de botones del expendedor en la interfaz gráfica.
+ * Permite al usuario interactuar con el expendedor para comprar productos, agregar dinero, retirar productos y retirar el vuelto.
+ */
 
 public class PanelBotonesExp extends JPanel {
     private JLabel saldoLabel;
@@ -31,17 +35,19 @@ public class PanelBotonesExp extends JPanel {
     private JButton botonCoca;
     private JButton botonSprite;
 
-
+    /**
+     * Constructor de PanelBotonesExp. Inicializa los componentes y configura el panel.
+     *
+     * @param panelComprador El panel del comprador.
+     * @param panelExpendedor El panel del expendedor.
+     */
     public PanelBotonesExp(PanelComprador panelComprador, PanelExpendedor panelExpendedor) {
-        // Inicialización de paneles y componentes
         this.panelComprador = panelComprador;
         this.panelExpendedor = panelExpendedor;
 
-        // Asegúrate de que el expendedor esté correctamente inicializado
-        expendedor = new Expendedor(5);  // Número de productos iniciales
+        expendedor = new Expendedor(5);  // Número de productos iniciales definidos en 5
         depositoSaldo = new DepositoM();
 
-        // Configuración del panel
         this.setBackground(Color.DARK_GRAY);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -155,7 +161,7 @@ public class PanelBotonesExp extends JPanel {
         labelProductos.setAlignmentX(Component.CENTER_ALIGNMENT);
         labelProductos.setForeground(Color.WHITE);
 
-        // Añadir los paneles y componentes al panel principal
+        // Añadir los paneles y componentes al panel principal con espaciados
         add(panelAgregarDinero);
         add(Box.createRigidArea(new Dimension(0, 10)));
         add(saldoLabel);
@@ -169,33 +175,39 @@ public class PanelBotonesExp extends JPanel {
         add(Box.createRigidArea(new Dimension(0, 10)));
         add(panelCantidadProductos);
     }
-
+    /**
+     * Actualiza la cantidad de productos mostrada en los labels.
+     */
     private void actualizarCantidadProductos() {
-        // Actualiza el texto de cada JLabel para mostrar la cantidad actual de productos en el expendedor
         cantidadCocaLabel.setText("Coca Cola restantes: " + expendedor.getCantidadCoca());
         cantidadSpriteLabel.setText("Sprite restantes: " + expendedor.getCantidadSprite());
         cantidadSnickersLabel.setText("Snickers restantes: " + expendedor.getCantidadSnickers());
         cantidadSuper8Label.setText("Super8 restantes: " + expendedor.getCantidadSuper8());
     }
 
+    /**
+     * Intenta comprar un producto del expendedor.
+     *
+     * @param productoEnum El producto a comprar.
+     */
 
     private void comprarProducto(productosEnum productoEnum) {
-        // Verificar si el saldo es suficiente antes de intentar la compra
+        // Verificar si el saldo es suficiente antes de intentar la compra.
         if (saldoDisponible < productoEnum.getPrecio()) {
             JOptionPane.showMessageDialog(this, "No hay saldo suficiente para comprar " + productoEnum);
             return;
         }
 
         try {
-            // Verificar si hay un producto sin retirar
+            // Verificar si hay un producto sin retirar.
             if (productoComprado != null) {
                 JOptionPane.showMessageDialog(this, "Tiene un producto sin retirar. Se añadirá al inventario automáticamente.");
                 panelComprador.getPanelInventario().agregarProducto(productoComprado);
                 JOptionPane.showMessageDialog(null, productoComprado.getNombre() + " añadido al inventario.");
-                productoComprado = null; // Limpiar la referencia de productoComprado
+                productoComprado = null; // Limpiar la referencia de productoComprado.
             }
 
-            // Intentar comprar el nuevo producto
+            // Intentar comprar el nuevo producto.
             expendedor.comprarProducto(depositoSaldo, productoEnum);
             productoComprado = expendedor.getProductoComprado();
             panelExpendedor.actualizarProductoComprado(productoComprado);
@@ -215,13 +227,16 @@ public class PanelBotonesExp extends JPanel {
         }
     }
 
-// Elimina el método actualizarEstadoBotonesProductos
-// y la llamada a este método en actualizarSaldo, si existe.
-
+    /**
+     * Actualiza el saldo mostrado en el label.
+     */
     private void actualizarSaldo() {
         saldoLabel.setText("Saldo: $" + saldoDisponible);
     }
 
+    /**
+     * Retira el vuelto del expendedor y lo añade a la billetera del comprador.
+     */
 
     private void retirarVuelto() {
         if (saldoDisponible <= 0) {
@@ -256,6 +271,9 @@ public class PanelBotonesExp extends JPanel {
         ventanaVuelto.setVisible(true);
     }
 
+    /**
+     * Retira el producto comprado del expendedor y lo añade al inventario del comprador.
+     */
 
     private void retirarProducto() {
         if (productoComprado != null) {

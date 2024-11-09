@@ -21,7 +21,7 @@ public class DepositoM extends Deposito<Moneda> {
      * @param moneda La moneda que se desea agregar al depósito.
      */
     public void addMoneda(Moneda moneda) {
-        super.addDeposito(moneda);  // Utiliza el método de la clase padre para agregar una moneda
+        super.addDeposito(moneda);  // Utiliza el metodo de la clase padre para agregar una moneda
     }
 
     /**
@@ -30,12 +30,15 @@ public class DepositoM extends Deposito<Moneda> {
      * @return La primera moneda en el depósito, o {@code null} si el depósito está vacío.
      */
     public Moneda getMoneda() {
-        return super.getProducto();  // Utiliza el método de la clase padre para obtener una moneda
+        return super.getProducto();  // Utiliza el metodo de la clase padre para obtener una moneda
     }
+
+    /**
+     * Limpia el depósito de monedas.
+     */
 
     public void limpiarDeposito() {
         super.limpiarDeposito();
     }
-
 
 }

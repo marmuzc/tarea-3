@@ -4,7 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import LOGICA.*;
 import LOGICA.Productos.Productos;
-
+/**
+ * Clase PanelExpendedor representa el panel del expendedor en la interfaz gráfica.
+ * Muestra las imágenes de los productos disponibles y permite la interacción con el expendedor.
+ */
 public class PanelExpendedor extends JPanel {
     private Image imagenCoca;
     private Image imagenSprite;
@@ -14,11 +17,17 @@ public class PanelExpendedor extends JPanel {
     private Productos productoComprado;
     private Image imagenProducto;
 
-    // Variables para los precios de los productos
+
     private final String precioCoca = "(3) - $1200";
     private final String precioSprite = "(4) - $900";
     private final String precioSnickers = "(1) - $500";
     private final String precioSuper8 = "(2) - $400";
+
+    /**
+     * Constructor de PanelExpendedor. Inicializa los componentes y configura el panel.
+     *
+     * @param panelComprador El panel del comprador.
+     */
 
     public PanelExpendedor(PanelComprador panelComprador) {
         this.setBackground(Color.darkGray);
@@ -39,11 +48,21 @@ public class PanelExpendedor extends JPanel {
         this.add(contenedorBotones, BorderLayout.EAST);
     }
 
+    /**
+     * Actualiza el producto comprado y redibuja el panel para mostrar el producto.
+     *
+     * @param producto El producto comprado.
+     */
     public void actualizarProductoComprado(Productos producto) {
         this.productoComprado = producto;
         repaint(); // Redibuja el panel para mostrar el producto
     }
 
+    /**
+     * Sobrescribe el método paintComponent para dibujar el fondo, los productos y el producto comprado.
+     *
+     * @param g El contexto gráfico.
+     */
 
     @Override
     protected void paintComponent(Graphics g) {

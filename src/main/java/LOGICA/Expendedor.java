@@ -46,7 +46,7 @@ public class Expendedor {
     }
 
     /**
-     * Método para comprar un producto utilizando una moneda.
+     * Metodo para comprar un producto utilizando una moneda.
      * Si el pago es insuficiente o incorrecto, lanza una excepción.
      *
      * @param m Moneda utilizada para realizar la compra.
@@ -109,7 +109,7 @@ public class Expendedor {
     }
 
     /**
-     * Método para devolver el vuelto al usuario.
+     * Metodo para devolver el vuelto al usuario.
      *
      * @param valorMoneda Cantidad de dinero a devolver en monedas de 100.
      */
@@ -123,7 +123,7 @@ public class Expendedor {
     }
 
     /**
-     * Método para obtener el producto comprado.
+     * Metodo para obtener el producto comprado.
      * Simula la acción de sacar el producto del depósito especial.
      *
      * @return El producto en el depósito especial, o null si no hay producto.
@@ -133,7 +133,7 @@ public class Expendedor {
     }
 
     /**
-     * Método para obtener una moneda del depósito de vuelto.
+     * Metodo para obtener una moneda del depósito de vuelto.
      *
      * @return Una moneda del vuelto, o null si no hay vuelto disponible.
      */
@@ -146,21 +146,43 @@ public class Expendedor {
         return depositoMonedas;
     }
 
+    /**
+     * Metodo para obtener la cantidad de productos de CocaCola.
+     *
+     * @return La cantidad de productos de CocaCola.
+     */
+
     public int getCantidadCoca() {
         return coca.getCantidadProductos();
     }
+
+    /**
+     * Metodo para obtener la cantidad de productos de Sprite.
+     *
+     * @return La cantidad de productos de Sprite.
+     */
 
     public int getCantidadSprite() {
         return sprite.getCantidadProductos();
     }
 
+    /**
+     * Metodo para obtener la cantidad de productos de Snickers.
+     *
+     * @return La cantidad de productos de Snickers.
+     */
+
     public int getCantidadSnickers() {
         return snickers.getCantidadProductos();
     }
 
+    /**
+     * Metodo para obtener la cantidad de productos de Super8.
+     *
+     * @return La cantidad de productos de Super8.
+     */
+
     public int getCantidadSuper8() {
         return super8.getCantidadProductos();
     }
-
-
 }

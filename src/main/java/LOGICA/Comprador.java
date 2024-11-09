@@ -12,6 +12,7 @@ public class Comprador {
     private String saborProducto;  // Almacena el sabor del producto comprado
     private int vuelto;  // Almacena el valor del vuelto entregado
 
+
     /**
      * Constructor del Comprador.
      * Realiza la compra de un producto en el expendedor utilizando una o más monedas.
